@@ -8,22 +8,22 @@ const Navbar = () => {
   const navItems = [
     {
       path: '/home',
-      icon: '/src/assets/icons/HomeOutline.svg',
+      icon: '/icons/HomeOutline.svg',
       label: '홈'
     },
     {
       path: '/map',
-      icon: '/src/assets/icons/LocationMarkerOutline.svg',
+      icon: '/icons/LocationMarkerOutline.svg',
       label: '지도'
     },
     {
       path: '/menu',
-      icon: '/src/assets/icons/ClipboardListOutline.svg',
+      icon: '/icons/ClipboardListOutline.svg',
       label: '메뉴'
     },
     {
       path: '/user',
-      icon: '/src/assets/icons/UserCircleOutline.svg',
+      icon: '/icons/UserCircleOutline.svg',
       label: '유저'
     }
   ]
