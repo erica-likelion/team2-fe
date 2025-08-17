@@ -10,11 +10,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Grocering" />
     <link rel="manifest" href="/manifest.json" />
+    
+    <!-- 카카오 API -->
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_API_KEY%&libraries=services,clusterer"
+    ></script>
+
     <title>Grocering</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ff5e8bcc495f3028828cdc2aca1d99d&libraries=services"></script>
+    <div id="root"></div>    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

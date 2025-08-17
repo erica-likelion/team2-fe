@@ -1,61 +1,22 @@
-.map-page {
-  position: relative;
-  width: 100%;
+.page {
   height: 100vh;
-  overflow: hidden;
-}
-
-.map-container {
   width: 100%;
-  height: calc(100vh - 80px); /* navbar 높이만큼 빼기 */
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
 }
 
-.current-location-btn {
-  position: fixed;
-  bottom: 100px; /* navbar 위쪽으로 20px 여백 */
-  left: 20px;
-  width: 48px;
-  height: 48px;
-  background-color: white;
-  border: 1px solid var(--border-light);
-  border-radius: 50%;
+.page-content {
+  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  transition: all 0.2s ease;
+  flex-direction: column;
+  padding: 0 !important;
 }
 
-.current-location-btn:hover {
-  background-color: var(--bg-secondary);
-  transform: scale(1.05);
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-gray);
+  text-align: center;
+  margin: 0;
+  padding: 20px; /* 제목에만 여백 추가 */
 }
 
-.current-location-btn:active {
-  transform: scale(0.95);
-}
-
-.current-location-btn img {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) saturate(100%) invert(36%) sepia(44%) saturate(1045%) hue-rotate(117deg) brightness(91%) contrast(89%);
-  /* #2E8B57 색상 필터 */
-}
-
-/* 모바일 최적화 */
-@media (max-width: 480px) {
-  .current-location-btn {
-    bottom: 90px;
-    left: 16px;
-    width: 44px;
-    height: 44px;
-  }
-  
-  .current-location-btn img {
-    width: 20px;
-    height: 20px;
-  }
-}
