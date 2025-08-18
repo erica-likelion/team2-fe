@@ -39,7 +39,7 @@ const Navbar = () => {
           <div className="nav-icon">
             <img src={item.icon} alt={item.label} />
           </div>
-          <span className="nav-label">{item.label}</span>
+          {/* <span className="nav-label">{item.label}</span> */}
         </button>
       ))}
     </nav>
