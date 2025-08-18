@@ -96,22 +96,28 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants, isExpanded, onEx
           <div key={restaurant.id} className="restaurant-card">
             <div className="restaurant-image">
               <img src={restaurant.image} alt={restaurant.name} />
+              {/* 영업중 태그를 이미지 위에 오버레이 */}
+              {restaurant.tags.includes('영업중') && (
+                <div className="open-status-tag">영업중</div>
+              )}
             </div>
             <div className="restaurant-info">
-              <h3 className="restaurant-name">{restaurant.name}</h3>
-              <p className="restaurant-description">{restaurant.description}</p>
-              <div className="restaurant-hours">{restaurant.hours}</div>
-              <div className="restaurant-tags">
-                {restaurant.tags.map((tag, index) => (
-                  <span key={index} className="tag">
-                    {tag}
-                  </span>
-                ))}
+              <div className="restaurant-details">
+                <h3 className="restaurant-name">{restaurant.name}</h3>
+                <p className="restaurant-description">{restaurant.description}</p>
+                <div className="restaurant-hours">{restaurant.hours}</div>
+                <div className="restaurant-tags">
+                  {restaurant.tags.filter(tag => tag !== '영업중').map((tag, index) => (
+                    <span key={index} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
+              <button className="bookmark-button">
+                🔖
+              </button>
             </div>
-            <button className="bookmark-button">
-              🔖
-            </button>
           </div>
         ))}
       </div>
