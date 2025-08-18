@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import SearchBar from '../components/SearchBar';
 import BottomSheet from '../components/BottomSheet';
@@ -52,6 +52,14 @@ const sampleRestaurants = [
 ];
 
 const MapPage: React.FC = () => {
+  const [isBottomSheetExpanded, setIsBottomSheetExpanded] = useState(false);
+
+  const handleMapClick = () => {
+    if (isBottomSheetExpanded) {
+      setIsBottomSheetExpanded(false);
+    }
+  };
+
   return (
     <div className="page">
       <div className="page-content">
@@ -60,6 +68,7 @@ const MapPage: React.FC = () => {
           center={HANYANG_ERICA}
           style={{ width: "100%", height: "100%" }}
           level={3}
+          onClick={handleMapClick}
         >
           <MapMarker position={HANYANG_ERICA}>
             <div style={{color:"#000"}}>한양대 에리카캠퍼스</div>
@@ -69,6 +78,7 @@ const MapPage: React.FC = () => {
           {sampleRestaurants.map((restaurant) => (
             <MapMarker
               key={restaurant.id}
+              // 랜덤 위치 조정 (실제론 API로 받아와야 함)
               position={{
                 lat: HANYANG_ERICA.lat + (Math.random() - 0.5) * 0.01,
                 lng: HANYANG_ERICA.lng + (Math.random() - 0.5) * 0.01
@@ -89,8 +99,20 @@ const MapPage: React.FC = () => {
         {/* 플로팅 검색바 */}
         <SearchBar />
 
+        {/* 바텀시트가 확장되었을 때 백드롭 */}
+        {isBottomSheetExpanded && (
+          <div 
+            className="bottom-sheet-backdrop"
+            onClick={() => setIsBottomSheetExpanded(false)}
+          />
+        )}
+
         {/* 바텀시트 */}
-        <BottomSheet restaurants={sampleRestaurants} />
+        <BottomSheet 
+          restaurants={sampleRestaurants}
+          isExpanded={isBottomSheetExpanded}
+          onExpandedChange={setIsBottomSheetExpanded}
+        />
       </div>
     </div>
   );

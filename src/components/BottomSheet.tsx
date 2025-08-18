@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import './BottomSheet.css';
 
 interface Restaurant {
@@ -12,15 +12,18 @@ interface Restaurant {
 
 interface BottomSheetProps {
   restaurants: Restaurant[];
+  isExpanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
 }
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [startY, setStartY] = useState(0);
-  const [currentY, setCurrentY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
+const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants, isExpanded, onExpandedChange }) => {
+  // const [startY, setStartY] = useState(0);
+  // const [currentY, setCurrentY] = useState(0);
+  // const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
 
+  // 슬라이딩 인식 구현하려 했으나 PWA에서 하단 스와이프가 refresh로 인식되어 주석처리
+  /*
   const handleTouchStart = (e: React.TouchEvent) => {
     setStartY(e.touches[0].clientY);
     setIsDragging(true);
@@ -55,22 +58,30 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants }) => {
     if (!isDragging) {
       setIsExpanded(!isExpanded);
     }
+  };*/
+
+  const handleClick = () => {
+    onExpandedChange(!isExpanded);
+  };
+
+  const handleBottomSheetClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 백드롭으로의 이벤트 전파 방지
   };
 
   return (
     <div 
       className={`bottom-sheet ${isExpanded ? 'expanded' : ''}`}
       ref={sheetRef}
-      onTouchStart={handleTouchStart}
+      /* onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onClick={handleClick}
+      onTouchEnd={handleTouchEnd} */
+      onClick={handleBottomSheetClick}
     >
-      <div className="bottom-sheet-handle">
+      <div className="bottom-sheet-handle" onClick={handleClick}>
         <div className="handle-bar"></div>
       </div>
       
-      <div className="bottom-sheet-header">
+      <div className="bottom-sheet-header" onClick={handleClick}>
         <div className="sheet-title">
           <span className="location-icon">📍</span>
           이 지역의 그로세링 {restaurants.length}곳
