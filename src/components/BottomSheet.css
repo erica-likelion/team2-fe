@@ -15,7 +15,8 @@
 }
 
 .bottom-sheet.expanded {
-  height: calc(100vh - 200px); /* 상단 검색바와 navbar를 위한 공간 확보 */
+  max-height: calc(100vh - 200px); /* 상단 검색바와 navbar를 위한 공간 확보 */
+  height: 500px;
   cursor: default;
 }
 

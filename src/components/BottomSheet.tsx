@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
 import './BottomSheet.css';
 
 interface Restaurant {
@@ -16,11 +16,28 @@ interface BottomSheetProps {
   onExpandedChange: (expanded: boolean) => void;
 }
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants, isExpanded, onExpandedChange }) => {
+export interface BottomSheetRef {
+  scrollToRestaurant: (restaurantId: number) => void;
+}
+
+const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(({ restaurants, isExpanded, onExpandedChange }, ref) => {
   // const [startY, setStartY] = useState(0);
   // const [currentY, setCurrentY] = useState(0);
   // const [isDragging, setIsDragging] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const restaurantRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+
+  useImperativeHandle(ref, () => ({
+    scrollToRestaurant: (restaurantId: number) => {
+      const restaurantElement = restaurantRefs.current[restaurantId];
+      if (restaurantElement) {
+        restaurantElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
+      }
+    }
+  }));
 
   // 슬라이딩 인식 구현하려 했으나 PWA에서 하단 스와이프가 refresh로 인식되어 주석처리
   /*
@@ -93,7 +110,11 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants, isExpanded, onEx
 
       <div className="bottom-sheet-content">
         {restaurants.map((restaurant) => (
-          <div key={restaurant.id} className="restaurant-card">
+          <div 
+            key={restaurant.id} 
+            className="restaurant-card"
+            ref={(el) => { restaurantRefs.current[restaurant.id] = el; }}
+          >
             <div className="restaurant-image">
               <img src={restaurant.image} alt={restaurant.name} />
               {/* 영업중 태그를 이미지 위에 오버레이 */}
@@ -123,6 +144,6 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ restaurants, isExpanded, onEx
       </div>
     </div>
   );
-};
+});
 
 export default BottomSheet;
