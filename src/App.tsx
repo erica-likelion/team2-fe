@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SplashScreen from './components/SplashScreen'
+import LandingPage from './components/LandingPage'
 import Onboarding from './pages/Onboarding'
 import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
@@ -26,12 +27,13 @@ function App() {
     return <SplashScreen />
   }
 
-  // 온보딩 페이지일 때는 네비바 없이 렌더링
-  if (location.pathname === '/onboarding') {
+  // 랜딩 또는 온보딩 페이지일 때는 네비바 없이 렌더링
+  if (location.pathname === '/' || location.pathname === '/onboarding') {
     return (
       <div className="app">
         <main className="main-content">
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/onboarding" element={<Onboarding />} />
           </Routes>
         </main>
@@ -44,7 +46,6 @@ function App() {
     <div className="app">
       <main className="main-content">
         <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/menu" element={<MenuPage />} />

@@ -1,19 +1,23 @@
+import { useNavigate } from 'react-router-dom'
 import './LandingPage.css'
 
-interface LandingPageProps {
-  onStart: () => void
-}
+const LandingPage = () => {
+  const navigate = useNavigate()
 
-const LandingPage = ({ onStart }: LandingPageProps) => {
+  const handleStartClick = () => {
+    // 온보딩 페이지로 이동
+    navigate('/onboarding')
+  }
+
   return (
     <div className="landing-page">
       <div className="landing-content">
         <div className="welcome-section">
-          <h1 className="welcome-text">Welcome</h1>
+          <h1 className="welcome-text">환영합니다!</h1>
         </div>
         <div className="start-section">
-          <button className="start-button" onClick={onStart}>
-            시작하기
+          <button className="start-button" onClick={handleStartClick}>
+            기본 정보 설정하기
           </button>
         </div>
       </div>
