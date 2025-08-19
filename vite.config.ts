@@ -9,6 +9,10 @@ export default defineConfig({
     react(),
     svgr({
       include: "**/*.svg?react",
+      svgrOptions: {
+        plugins: ["@svgr/plugin-jsx"],
+        jsxRuntime: "automatic",
+      },
     }),
   ],
   resolve: {
