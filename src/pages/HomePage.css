@@ -147,8 +147,8 @@
 }
 
 /* Hot한 가게 섹션 */
-.hot-stores-section {
-  padding: 0 20px 24px;
+.stores-section {
+  padding: 20px;
 }
 
 .section-title {

@@ -140,8 +140,8 @@ const HomePage = () => {
         ))}
       </div>
 
-      {/* Hot한 가게 섹션 */}
-      <div className="hot-stores-section">
+      {/* 가게 섹션 */}
+      <div className="stores-section">
         <div className="section-title">
           <div className="tab-container">
             <button 
