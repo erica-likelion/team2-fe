@@ -6,6 +6,22 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './HomePage.css'
 
+// 이미지 import
+import store1 from '../assets/images/store_1.jpg'
+import store2 from '../assets/images/store_2.jpg'
+
+// 음식 카테고리 아이콘 import
+import chineseIcon from '../assets/icons/food/chinese.png'
+import japaneseIcon from '../assets/icons/food/japanese.png'
+import italyIcon from '../assets/icons/food/italy.png'
+import indianIcon from '../assets/icons/food/indian.png'
+import southeastAsianIcon from '../assets/icons/food/southeast_asian.png'
+import frenchIcon from '../assets/icons/food/french.svg'
+import southAmericanIcon from '../assets/icons/food/south_american.svg'
+import americanIcon from '../assets/icons/food/american.svg'
+import alcoholIcon from '../assets/icons/food/alchol.svg'
+import teaCoffeeIcon from '../assets/icons/food/tea_coffee.svg'
+
 const HomePage = () => {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('hot')
@@ -49,68 +65,68 @@ const HomePage = () => {
 
   const carouselItems = [
     {
-      image: '/images/store_1.jpg',
+      image: store1,
       title: '2025년 신년 가을 특집',
       subtitle: '최신 트렌드 정보'
     },
     {
-      image: '/images/store_2.jpg',
+      image: store2,
       title: '2025년 신년 가을 특집',
       subtitle: '최신 트렌드 정보'
     },
     {
-      image: '/images/store_1.jpg',
+      image: store1,
       title: '2025년 신년 가을 특집',
       subtitle: '최신 트렌드 정보'
     },
     {
-      image: '/images/store_2.jpg',
+      image: store2,
       title: '2025년 신년 가을 특집',
       subtitle: '최신 트렌드 정보'
     }
   ]
 
   const storeCategories = [
-    { icon: '/icons/food/chinese.png', name: '중국 음식' },
-    { icon: '/icons/food/japanese.png', name: '일본 음식' },
-    { icon: '/icons/food/italy.png', name: '이탈리 음식' },
-    { icon: '/icons/food/indian.png', name: '인도 음식' },
-    { icon: '/icons/food/southeast_asian.png', name: '동남아 음식' },
-    { icon: '/icons/food/french.svg', name: '프랑스 음식' },
-    { icon: '/icons/food/south_american.svg', name: '남미 음식' },
-    { icon: '/icons/food/american.svg', name: '북미 음식' },
-    { icon: '/icons/food/alchol.svg', name: '세계 주류' },
-    { icon: '/icons/food/tea_coffee.svg', name: '티/커피' }
+    { icon: chineseIcon, name: '중국 음식' },
+    { icon: japaneseIcon, name: '일본 음식' },
+    { icon: italyIcon, name: '이탈리 음식' },
+    { icon: indianIcon, name: '인도 음식' },
+    { icon: southeastAsianIcon, name: '동남아 음식' },
+    { icon: frenchIcon, name: '프랑스 음식' },
+    { icon: southAmericanIcon, name: '남미 음식' },
+    { icon: americanIcon, name: '북미 음식' },
+    { icon: alcoholIcon, name: '세계 주류' },
+    { icon: teaCoffeeIcon, name: '티/커피' }
   ]
 
   const hotStores = [
     {
-      image: '/images/store_1.jpg',
+      image: store1,
       title: '프리미에트 코쿠리니',
       subtitle: '안산시 단원구 고잔동'
     },
     {
-      image: '/images/store_2.jpg',
+      image: store2,
       title: '동우렌터미더 꾸역 터부 용',
       subtitle: '안산시 단원구 해양동'
     },
     {
-      image: '/images/store_1.jpg',
+      image: store1,
       title: '스국러이아 다느',
       subtitle: '안산시 단원구 고잔동'
     },
     {
-      image: '/images/store_2.jpg',
+      image: store2,
       title: '영률본스 그로서리 하우스',
       subtitle: '안산시 단원구 사동'
     },
     {
-      image: '/images/store_1.jpg',
+      image: store1,
       title: '아시아 소국치어로',
       subtitle: '안산시 단원구 고잔동'
     },
     {
-      image: '/images/store_2.jpg',
+      image: store2,
       title: '무형만드 멀티 이제드 아바 바이',
       subtitle: '안산시 단원구 해양동'
     }

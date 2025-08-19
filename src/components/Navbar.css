@@ -42,16 +42,16 @@
   justify-content: center;
 }
 
-.nav-icon img {
+.nav-icon svg {
   width: 100%;
   height: 100%;
-  filter: brightness(0) saturate(100%); /* 검은색으로 변경 */
-  transition: filter 0.2s ease;
+  color: #666666;
+  fill: none;
+  transition: color 0.2s ease;
 }
 
-.nav-item.active .nav-icon img {
-  filter: brightness(0) saturate(100%) invert(36%) sepia(44%) saturate(1045%) hue-rotate(117deg) brightness(91%) contrast(89%);
-  /* #2E8B57 색상 필터 */
+.nav-item.active .nav-icon svg {
+  color: var(--brand-color);
 }
 
 .nav-label {
