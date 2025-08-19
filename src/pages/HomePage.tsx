@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './HomePage.css'
 
 const HomePage = () => {
+  const [activeTab, setActiveTab] = useState('hot')
   const carouselSettings = {
     dots: false,
     infinite: true,
@@ -138,11 +140,23 @@ const HomePage = () => {
         ))}
       </div>
 
-      {/* 핫한 가게 섹션 */}
+      {/* Hot한 가게 섹션 */}
       <div className="hot-stores-section">
         <div className="section-title">
-          <h3>Hot한 가게</h3>
-          <span>내 주변</span>
+          <div className="tab-container">
+            <button 
+              className={`tab-button ${activeTab === 'hot' ? 'active' : ''}`}
+              onClick={() => setActiveTab('hot')}
+            >
+              Hot한 가게
+            </button>
+            <button 
+              className={`tab-button ${activeTab === 'nearby' ? 'active' : ''}`}
+              onClick={() => setActiveTab('nearby')}
+            >
+              내 주변
+            </button>
+          </div>
           <div className="filter-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M4 6H20M4 12H16M4 18H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -150,17 +164,23 @@ const HomePage = () => {
           </div>
         </div>
         
-        <div className="stores-grid">
-          {hotStores.map((store, index) => (
-            <div key={index} className="store-item">
-              <img src={store.image} alt={store.title} />
-              <div className="store-info">
-                <h4>{store.title}</h4>
-                <p>{store.subtitle}</p>
+        {activeTab === 'hot' ? (
+          <div className="stores-grid">
+            {hotStores.map((store, index) => (
+              <div key={index} className="store-item">
+                <img src={store.image} alt={store.title} />
+                <div className="store-info">
+                  <h4>{store.title}</h4>
+                  <p>{store.subtitle}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="coming-soon">
+            <p>준비중</p>
+          </div>
+        )}
       </div>
     </div>
   )
