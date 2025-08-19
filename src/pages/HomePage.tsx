@@ -87,32 +87,32 @@ const HomePage = () => {
     {
       image: '/images/store_1.jpg',
       title: '프리미에트 코쿠리니',
-      subtitle: '인삼시 삼복구 예당동'
+      subtitle: '안산시 단원구 고잔동'
     },
     {
       image: '/images/store_2.jpg',
       title: '동우렌터미더 꾸역 터부 용',
-      subtitle: '인삼시 단원구 중랑동'
+      subtitle: '안산시 단원구 해양동'
     },
     {
       image: '/images/store_1.jpg',
       title: '스국러이아 다느',
-      subtitle: '인삼시 삼복구 시흥'
+      subtitle: '안산시 단원구 고잔동'
     },
     {
       image: '/images/store_2.jpg',
       title: '영률본스 그로서리 하우스',
-      subtitle: '시흥시 배곧동'
+      subtitle: '안산시 단원구 사동'
     },
     {
       image: '/images/store_1.jpg',
       title: '아시아 소국치어로',
-      subtitle: '인삼시 남동구 논현동'
+      subtitle: '안산시 단원구 고잔동'
     },
     {
       image: '/images/store_2.jpg',
       title: '무형만드 멀티 이제드 아바 바이',
-      subtitle: '인삼시 단원구 중랑동'
+      subtitle: '안산시 단원구 해양동'
     }
   ]
 
