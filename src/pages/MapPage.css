@@ -2,7 +2,9 @@
   height: 100vh;
   width: 100%;
   background-color: var(--bg-primary);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow: hidden;
 }
 
@@ -11,6 +13,7 @@
   width: 100%;
   position: relative;
   padding: 0 !important;
+  overflow: hidden;
 }
 
 .page-title {
@@ -34,7 +37,7 @@
 }
 
 .map-controls {
-  position: absolute;
+  position: fixed;
   left: 20px;
   bottom: 120px;
   display: flex;
