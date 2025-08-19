@@ -138,7 +138,7 @@ const HomePage = () => {
       <div className="header">
         <div className="location">
           <span>중앙동</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M7 10L12 15L17 10H7Z" fill="currentColor"/>
           </svg>
         </div>
