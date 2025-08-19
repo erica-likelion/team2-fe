@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -18,6 +20,15 @@ const HomePage = () => {
     variableWidth: false,
 
   }
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
+    if (!hasCompletedOnboarding) {
+      navigate('/onboarding');
+    }
+  }, [navigate]);
 
   const carouselItems = [
     {
