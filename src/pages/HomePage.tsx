@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -7,7 +7,22 @@ import 'slick-carousel/slick/slick-theme.css'
 import './HomePage.css'
 
 const HomePage = () => {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('hot')
+
+  const handlePreferenceRegistration = () => {
+    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding')
+    
+    if (hasCompletedOnboarding === 'true') {
+      const shouldOverwrite = window.confirm('이미 등록되어 있어요!\n다시 등록하시겠어요?')
+      if (shouldOverwrite) {
+        navigate('/onboarding')
+      }
+    } else {
+      navigate('/onboarding')
+    }
+  }
+  
   const carouselSettings = {
     dots: false,
     infinite: true,
@@ -21,14 +36,16 @@ const HomePage = () => {
 
   }
   
+  /*
   const navigate = useNavigate();
 
   useEffect(() => {
     const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-    if (!hasCompletedOnboarding) {
+    if (hasCompletedOnboarding != 'true') {
       navigate('/onboarding');
     }
   }, [navigate]);
+  */
 
   const carouselItems = [
     {
@@ -136,7 +153,7 @@ const HomePage = () => {
         <div className="section-header">
           <h3>자신의 음식 성향을<br />등록해 보세요!</h3>          
         </div>
-        <button className="register-btn">성향 등록하기</button>
+        <button className="register-btn" onClick={handlePreferenceRegistration}>성향 등록하기</button>
       </div>
 
       {/* 음식 카테고리 그리드 */}
