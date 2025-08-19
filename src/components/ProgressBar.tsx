@@ -15,7 +15,7 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
   
   const styles = {
     wrapper: {
-      width: "375px",
+      width: "100%",
       height: "4px",
       backgroundColor: "#0000000F",
       borderRadius: "2px",
