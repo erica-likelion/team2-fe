@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: var(--view-max-width);
   height: 80px;
   background-color: var(--bg-primary);
   border-top: 1px solid var(--border-light);
