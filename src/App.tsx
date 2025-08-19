@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SplashScreen from './components/SplashScreen'
 import Onboarding from './pages/Onboarding'
+import OnboardingFinish from './pages/OnboardingFinish'
 import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
 import MenuPage from './pages/MenuPage'
@@ -26,13 +27,14 @@ function App() {
     return <SplashScreen />
   }
 
-  // 온보딩 페이지일 때는 네비바 없이 렌더링
-  if (location.pathname === '/onboarding') {
+  // 온보딩 플로우일 때는 네비바 없이 렌더링
+  if (location.pathname.startsWith('/onboarding')) {
     return (
       <div className="app">
         <main className="main-content">
           <Routes>
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/onboarding/finish" element={<OnboardingFinish />} />
           </Routes>
         </main>
       </div>
