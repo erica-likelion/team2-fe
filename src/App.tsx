@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import SplashScreen from './components/SplashScreen'
 import LandingPage from './components/LandingPage'
 import Onboarding from './pages/Onboarding'
+import OnboardingFinish from './pages/OnboardingFinish'
 import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
 import MenuPage from './pages/MenuPage'
@@ -28,13 +29,14 @@ function App() {
   }
 
   // 랜딩 또는 온보딩 페이지일 때는 네비바 없이 렌더링
-  if (location.pathname === '/' || location.pathname === '/onboarding') {
+  if (location.pathname === '/' || location.pathname.startsWith('/onboarding')) {
     return (
       <div className="app">
         <main className="main-content">
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/onboarding/finish" element={<OnboardingFinish />} />
           </Routes>
         </main>
       </div>

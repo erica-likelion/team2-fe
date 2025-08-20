@@ -75,7 +75,7 @@ export default function Onboarding() {
     } else {
       console.log("온보딩 완료!", answers);
       localStorage.setItem('hasCompletedOnboarding', 'true');
-      navigate('/home');
+      navigate('/onboarding/finish');
     }
   };
 
