@@ -17,8 +17,11 @@ const LandingPage = () => {
         </div>
         <div className="start-section">
           <button className="start-button" onClick={handleStartClick}>
-            기본 정보 설정하기
-          </button>
+            음식 성향 설정하기
+          </button>     
+          <button className="later-button" onClick={() => navigate('/home')}>
+            다음에 할게요
+          </button>        
         </div>
       </div>
     </div>
