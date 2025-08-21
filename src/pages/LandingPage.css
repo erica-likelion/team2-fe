@@ -34,6 +34,8 @@
 
 .start-section {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-bottom: 40px;
 }
@@ -48,6 +50,15 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.later-button {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+  font-size: 1rem;
+  margin-top: 16px;
+  cursor: pointer;
 }
 
 .start-button:hover {

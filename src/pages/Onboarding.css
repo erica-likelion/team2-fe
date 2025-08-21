@@ -1,6 +1,9 @@
 .onboarding-page {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 430px;
+  max-width: var(--view-max-width);
   height: 100vh;
   margin: 0 auto;
   display: flex;

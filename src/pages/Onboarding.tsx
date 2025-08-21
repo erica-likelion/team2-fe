@@ -15,7 +15,7 @@ export default function Onboarding() {
   const handleBackClick = () => {
     if (step === 0) {
       // 첫 번째 단계에서 백버튼 클릭 시 확인 창
-      const shouldExit = window.confirm('정말 개인 기본 정보 입력을 그만두시겠어요?');
+      const shouldExit = window.confirm('정말 음식 성향 설정을 그만두시겠어요?');
       if (shouldExit) {
         // 온보딩 미완료 상태로 설정
         localStorage.setItem('hasCompletedOnboarding', 'false');
@@ -88,7 +88,7 @@ export default function Onboarding() {
             <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-        <h1 className="onboarding-title">개인 기본 정보</h1>
+        <h1 className="onboarding-title">음식 성향 등록</h1>
       </div>
 
       {/* 프로그래스바 */}

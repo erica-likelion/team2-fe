@@ -1,4 +1,9 @@
-export default function ProgressBar({ current, total }) {
+interface ProgressBarProps {
+  current: number;
+  total: number;
+}
+
+export default function ProgressBar({ current, total }: ProgressBarProps) {
     const progress = (current / total) * 100;
   
     return (
@@ -10,7 +15,7 @@ export default function ProgressBar({ current, total }) {
   
   const styles = {
     wrapper: {
-      width: "375px",
+      width: "100%",
       height: "4px",
       backgroundColor: "#0000000F",
       borderRadius: "2px",

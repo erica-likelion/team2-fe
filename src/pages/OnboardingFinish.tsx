@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
+import './Onboarding.css';
+import './OnboardingFinish.css';
 
 export default function OnboardingFinish() {
   const navigate = useNavigate();
@@ -14,52 +16,20 @@ export default function OnboardingFinish() {
   }, [navigate]);
 
   return (
-    <div style={styles.container}>
-      <ProgressBar current={totalSteps} total={totalSteps} />
-      <div style={styles.centerArea}>
-        <div style={styles.messageBox}>
-          <span style={styles.messageText}>조사완료!</span>
-          <span style={styles.messageSubText}>고생하셨어요!</span>
+    <div className="onboarding-finish-container">
+      {/* 헤더 */}
+      <div className="onboarding-header">
+        <h1 className="onboarding-title">음식 성향 등록</h1>
+      </div>
+      <div className="progress-section">
+        <ProgressBar current={totalSteps} total={totalSteps} />
+      </div>
+      <div className="onboarding-finish-center-area">
+        <div className="onboarding-finish-message-box">
+          <span className="onboarding-finish-message-text">조사 완료!</span>
+          <span className="onboarding-finish-message-sub-text">고생하셨어요!</span>
         </div>
       </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    width: "375px",
-    height: "812px",
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column" as const,
-    backgroundColor: "#fff",
-  },
-  centerArea: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  messageBox: {
-    width: "272px",
-    height: "144px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column" as const,
-    backgroundColor: "transparent",
-  },
-  messageText: {
-    fontSize: "72px",
-    fontWeight: 700,
-    color: "#000",
-    lineHeight: "100%",
-  },
-  messageSubText: {
-    fontSize: "40px",
-    color: "#000",
-    lineHeight: "100%",
-    marginTop: "32px",
-  },
-};

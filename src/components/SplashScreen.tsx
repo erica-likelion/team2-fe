@@ -1,8 +1,12 @@
 import './SplashScreen.css'
 
-const SplashScreen = () => {
+interface SplashScreenProps {
+  fadeOut?: boolean;
+}
+
+const SplashScreen = ({ fadeOut = false }: SplashScreenProps) => {
   return (
-    <div className="splash-screen">
+    <div className={`splash-screen ${fadeOut ? 'fade-out' : ''}`}>
       <div className="splash-content">
         {/* <h1 className="splash-title">Grocering</h1> */}
         <img src="/logo.png" alt="Grocering Logo" className="splash-logo"
