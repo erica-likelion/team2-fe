@@ -105,7 +105,7 @@ export default function Onboarding() {
         </div>
 
         {/* 옵션 버튼 */}
-        <div className="options-grid">
+        <div className={`options-grid ${step >= 1 && step <= 3 ? 'preference-options' : ''}`}>
           {currentStep.options.map((option) => (
             <button
               key={option}
@@ -147,6 +147,24 @@ const steps: Step[] = [
     title: "선호하는 조리 스타일을 선택해주세요.",
     subText: "선호하는 조리 스타일은 중복 선택 가능해요.",
     options: ["구이", "볶음", "튀김", "찜", "생식", "오븐 구이", "국물, 탕", "기타"],
+  },
+  {
+    title: "매운 음식 선호도를 선택해주세요.",
+    subText: "매운 음식 선호도는 하나만 선택 가능해요.",
+    options: ["매우 싫음", "약간 싫음", "보통", "약간 좋음", "매우 좋음"],
+    singleSelect: true,
+  },
+  {
+    title: "단 음식 선호도를 선택해주세요.",
+    subText: "단 음식 선호도는 하나만 선택 가능해요.",
+    options: ["매우 싫음", "약간 싫음", "보통", "약간 좋음", "매우 좋음"],
+    singleSelect: true,
+  },
+  {
+    title: "짠 음식 선호도를 선택해주세요.",
+    subText: "짠 음식 선호도는 하나만 선택 가능해요.",
+    options: ["매우 싫음", "약간 싫음", "보통", "약간 좋음", "매우 좋음"],
+    singleSelect: true,
   },
   {
     title: "선호하는 조리 소요시간을 선택해주세요.",

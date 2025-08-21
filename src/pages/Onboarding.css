@@ -88,6 +88,30 @@
   margin-bottom: auto;
 }
 
+/* 선호도 옵션 (매운 음식, 단 음식, 짠 음식) */
+.options-grid.preference-options {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.options-grid.preference-options .option-button {
+  width: 335px;
+  height: 58px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.03);
+  margin: 0 auto;
+}
+
+/* 선호도 옵션 선택된 상태도 동일한 스타일 적용 */
+.options-grid.preference-options .option-button.selected {
+  border-color: var(--brand-color);
+  border-width: 2px;
+  background: rgba(46, 139, 87, 0.05);
+  color: var(--brand-color);
+  font-weight: 700;
+}
+
 .option-button {
   padding: 14px 16px;
   border: 1px solid rgba(0, 0, 0, 0.12);
