@@ -101,7 +101,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(({ restaurants,
       <div className="bottom-sheet-header" onClick={handleClick}>
         <div className="sheet-title">
           <span className="location-icon">📍</span>
-          이 지역의 그로세링 {restaurants.length}곳
+          이 지역의 그로서링 {restaurants.length}곳
         </div>
         <button className="filter-button">
           ⚙️
