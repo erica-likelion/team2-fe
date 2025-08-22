@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { preferencesManager } from "../services/preferencesManager";
 import ProgressBar from "../components/ProgressBar";
 import './Onboarding.css';
 
@@ -74,7 +75,14 @@ export default function Onboarding() {
       setStep(step + 1);
     } else {
       console.log("온보딩 완료!", answers);
-      localStorage.setItem('hasCompletedOnboarding', 'true');
+      
+      // 간단한 데이터 구조로 저장
+      const onboardingData = {
+        answers,
+        steps
+      };
+      
+      preferencesManager.saveOnboardingData(onboardingData);
       navigate('/onboarding/finish');
     }
   };

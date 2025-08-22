@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { ensureSession } from './services/sessionManager'
 import Navbar from './components/Navbar'
 import SplashScreen from './components/SplashScreen'
 import LandingPage from './pages/LandingPage'
@@ -22,19 +23,33 @@ function App() {
   const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding') === 'true'
 
   useEffect(() => {
-    // 스플래시 화면이 표시되는 동안 다음 페이지를 미리 준비
-    setNextPageReady(true)
+    // 세션 초기화 및 스플래시 화면 관리
+    const initializeApp = async () => {
+      try {
+        // 세션 확보 (없으면 생성)
+        await ensureSession();
+        console.log('Session initialized successfully');
+      } catch (error) {
+        console.error('Failed to initialize session:', error);
+        // 세션 초기화 실패해도 앱은 계속 실행
+      }
 
-    // 스플래시 화면 1초 표시 후 페이드아웃 시작
-    const splashTimer = setTimeout(() => {
-      setIsFadingOut(true)
-      // 페이드아웃 완료 후 스플래시 제거
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 500) // 0.5초 페이드아웃 시간
-    }, 1000)
+      // 스플래시 화면이 표시되는 동안 다음 페이지를 미리 준비
+      setNextPageReady(true);
 
-    return () => clearTimeout(splashTimer)
+      // 스플래시 화면 1초 표시 후 페이드아웃 시작
+      const splashTimer = setTimeout(() => {
+        setIsFadingOut(true);
+        // 페이드아웃 완료 후 스플래시 제거
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500); // 0.5초 페이드아웃 시간
+      }, 1000);
+
+      return () => clearTimeout(splashTimer);
+    };
+
+    initializeApp();
   }, [])
 
   // 스플래시 화면이 보이는 동안에는 동시에 다음 페이지도 준비
