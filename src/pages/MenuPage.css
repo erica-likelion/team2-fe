@@ -1,21 +1,202 @@
 .page {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-  background-color: var(--bg-primary);
+  background-color: #f5f5f5;
+  padding-bottom: 50px; /* 네비바 공간 확보 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.page-content {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header {
+  width: 100%;
+  max-width: 480px;
   padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .page-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-gray);
-  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000 !important;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%; /* 31.2px */
+  letter-spacing: -0.6px;
+  text-align: left;
+}
+
+/* Character and Speech Bubble Section */
+.character-section {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+
+.speech-bubble {
+  position: relative;
+  width: 240.82px;
+  height: 76.076px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #1F6B43;
+  color: white;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #1F6B43;
+}
+
+.speech-bubble p {
   margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: white;
+}
+
+.speech-bubble p:first-child {
+  margin-bottom: 4px;
+}
+
+/* Recipe Card */
+.recipe-card {
+  width: 100%;
+  max-width: 420px;
+  height: 540px;
+  background-color: white;
+  border-radius: 12px;
+  align-items: center; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.recipe-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  padding-top: 34px;
+}
+
+.recipe-image {
+  width: 183px;
+  height: 183px;
+  margin-bottom: 20px;
+}
+
+.recipe-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.recipe-title-korean {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 8px 0;
+}
+
+.recipe-title-english {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 12px 0;
+}
+
+.recipe-description {
+  font-size: 16px;
+  color: #000;
+  margin: 0 0 8px 0;
+}
+
+.recipe-subtitle {
+  font-size: 16px;
+  color: #000;
+  margin: 0;
+}
+
+.recipe-link {
+  text-align: right;
+  font-size: 14px;
+  color: #000;
+  margin-top: 50px;
+  margin-right: 15px;
+}
+
+/* Floating Action Buttons */
+.floating-buttons {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  z-index: 100;
+  padding: 0 20px;
+}
+
+.recommendation-btn {
+  display: flex;
+  height: 46px;
+  padding: 15.5px 54px 15.5px 55px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 2px solid var(--Jade-Green, #2E8B57);
+  background: rgba(146, 177, 159, 0.26);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.20);
+  color: #1F6B43;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.recommendation-btn:hover {
+  transform: translateY(-2px);
+}
+
+.scroll-top-btn {
+  width: 40px;
+  height: 40px;
+  background-color: #1F6B43;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.scroll-top-btn:hover {
+  background-color: #2d7a4f;
+  transform: translateY(-2px);
 }
