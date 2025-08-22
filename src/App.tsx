@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
 import MenuPage from './pages/MenuPage'
 import UserPage from './pages/UserPage'
+import ShopDetail from './pages/ShopDetail'
 import './App.css'
 
 function App() {

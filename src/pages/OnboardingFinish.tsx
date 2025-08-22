@@ -6,11 +6,14 @@ import './OnboardingFinish.css';
 
 export default function OnboardingFinish() {
   const navigate = useNavigate();
-  const totalSteps = 4;
+
+  const handleBackClick = () => {
+    navigate(-1); 
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/home');
+      navigate("/home");
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
