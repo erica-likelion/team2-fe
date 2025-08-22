@@ -61,7 +61,7 @@ export class PreferencesManager {
   // 온보딩 완료 처리
   async completeOnboarding(): Promise<boolean> {
     try {
-      const guestId = await sessionManager.ensureSession();
+      // const guestId = await sessionManager.ensureSession();
       const storedData = localStorage.getItem(ONBOARDING_DATA_KEY);
       
       if (!storedData) {
@@ -86,8 +86,8 @@ export class PreferencesManager {
         });
         
         // 메타데이터 추가
-        serverData['완료시간'] = new Date().toISOString();
-        serverData['게스트ID'] = guestId;
+        // serverData['완료시간'] = new Date().toISOString();
+        // serverData['게스트ID'] = guestId;
         
         await userPreferencesApi.savePreferences(serverData);
         console.log('온보딩 데이터 서버 저장 완료:', serverData);
