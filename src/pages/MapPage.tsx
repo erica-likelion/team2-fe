@@ -2,65 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import SearchBar from '../components/SearchBar';
 import BottomSheet, { type BottomSheetRef } from '../components/BottomSheet';
+import { demoStores, type StoreData } from '../constants/demoStores';
 import './MapPage.css';
-import store1 from '../assets/images/store_1.jpg';
-import store2 from '../assets/images/store_2.jpg';
 
 // 한양대 에리카 캠퍼스 좌표
 const HANYANG_ERICA = { lat: 37.29644017218779, lng: 126.83516599926162 };
 
-// 샘플 식당 데이터 (좌표값 포함)
-const sampleRestaurants = [
-  {
-    id: 1,
-    name: '영플렉스 그로서리 하우스',
-    description: '신선한 해산물과 다양한 식재료를 만나보세요',
-    hours: '영업시간: 08:00 - 22:00',
-    tags: ['해산물', '주류 가능', '좋은푸드'],
-    image: store1,
-    position: { lat: 37.29744017218779, lng: 126.8341659992616 }
-  },
-  {
-    id: 2,
-    name: '스프라마트 다노',
-    description: '안산시 상록구 서론',
-    hours: '영업시간: 09:00 - 20:00',
-    tags: ['영업중'],
-    image: store2,
-    position: { lat: 37.29544017218779, lng: 126.83616599926162 }
-  },
-  {
-    id: 3,
-    name: '에리카마트',
-    description: '대학가 맛집, 신선한 재료로 만든 음식',
-    hours: '영업시간: 10:00 - 21:00',
-    tags: ['대학가', '신선함', '인기'],
-    image: store1,
-    position: { lat: 37.29844017218779, lng: 126.8371659992616 }
-  },
-  {
-    id: 4,
-    name: '로컬마트 에리카점',
-    description: '지역 최고의 식재료 전문점',
-    hours: '영업시간: 07:00 - 23:00',
-    tags: ['24시간', '편의점', '생활용품'],
-    image: store2,
-    position: { lat: 37.29444017218779, lng: 126.83316599926162 }
-  },
-  {
-    id: 5,
-    name: '그린마켓',
-    description: '친환경 유기농 식품 전문',
-    hours: '영업시간: 08:30 - 19:30',
-    tags: ['유기농', '친환경', '건강식품'],
-    image: store1,
-    position: { lat: 37.29644017218779, lng: 126.83816599926162 }
-  }
-];
-
 const MapPage: React.FC = () => {
   const [isBottomSheetExpanded, setIsBottomSheetExpanded] = useState(false);
-  const [restaurants, setRestaurants] = useState<typeof sampleRestaurants>([]);
+  const [restaurants, setRestaurants] = useState<StoreData[]>([]);
   const [mapLevel, setMapLevel] = useState(3);
   const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [mapCenter, setMapCenter] = useState(HANYANG_ERICA);
@@ -79,8 +29,8 @@ const MapPage: React.FC = () => {
     // };
     // fetchRestaurants();
     
-    // 현재는 샘플 데이터 사용
-    setRestaurants(sampleRestaurants);
+    // 현재는 데모 데이터 사용
+    setRestaurants(demoStores);
   }, []);
 
   const handleMapClick = () => {

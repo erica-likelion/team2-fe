@@ -64,8 +64,10 @@ function App() {
 
   // 앱 콘텐츠 렌더링 함수
   function renderAppContent() {
-    // 랜딩 또는 온보딩 페이지일 때는 네비바 없이 렌더링
-    if (location.pathname === '/' || location.pathname.startsWith('/onboarding')) {
+    // 랜딩, 온보딩, ShopDetail 페이지일 때는 네비바 없이 렌더링 (풀스크린)
+    if (location.pathname === '/' || 
+        location.pathname.startsWith('/onboarding') ||
+        location.pathname.startsWith('/shop/')) {
       return (
         <div className="app">
           <main className="main-content">
@@ -75,6 +77,7 @@ function App() {
               } />
               <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/onboarding/finish" element={<OnboardingFinish />} />
+              <Route path="/shop/:id" element={<ShopDetail />} />
             </Routes>
           </main>
         </div>

@@ -1,52 +1,52 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import { getStoreById, type StoreData } from '../constants/demoStores';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
 import ClipboardIcon from '@/assets/icons/ClipboardListOutline.svg';
 import HomeIcon from '@/assets/icons/HomeOutline.svg';
 import sharebutton from '../assets/icons/ShareOutline.svg'
 
-type Restaurant = {
-  id: number;
-  name: string;
-  description?: string;
-  hours?: string;
-  tags?: string[];
-  image?: string;
-  address?: string;
-  likes?: number;
-};
-
 export default function ShopDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
 
-  const restaurant = useMemo<Restaurant>(() => {
-    const state = (location.state as { restaurant?: Restaurant })?.restaurant;
+  const restaurant = useMemo<StoreData>(() => {
+    const state = (location.state as { restaurant?: StoreData })?.restaurant;
     if (state) return state;
-    // Fallback when directly accessing URL without state
+    
+    // URL 파라미터로 직접 접근할 때 ID로 데이터 가져오기
+    const storeId = Number(params.id);
+    const store = getStoreById(storeId);
+    if (store) return store;
+    
+    // Fallback when no data found
     return {
-      id: Number(params.id),
-      name: '가게 정보',
+      id: storeId || 1,
+      name: '가게 정보를 찾을 수 없습니다',
       description: '선택한 가게 상세 정보',
-      hours: '09:00 ~ 20:00',
+      hours: '영업시간: 09:00 - 20:00',
       tags: ['정보없음'],
-      image: '/images/store_1.jpg',
+      image: '../assets/images/stores/1.webp',
+      position: { lat: 37.2975, lng: 126.8373 },
       address: '주소 정보 없음',
-      likes: 0,
     };
   }, [location.state, params.id]);
 
   const convertToEnglish = (koreanName: string): string => {
     const nameMap: { [key: string]: string } = {
-      '영플렉스 그로서리 하우스': 'Youngplex Grocery House',
-      '스프라마트 다노': 'Supermarket Dano',
-      '에리카마트': 'Erica Mart',
-      '로컬마트 에리카점': 'Local Mart Erica',
-      '그린마켓': 'Green Market',
-      '스쿠데리아 디노': 'Scuderia Dino',
-      '가게 정보': 'Store Information',
+      '아시아 마트': 'Asia Mart',
+      '월드 푸드': 'World Food',
+      '사마르칸트': 'Samarkand',
+      '베트남 식료품': 'Vietnam Grocery',
+      '할랄 미트 & 식료품': 'Halal Meat & Grocery',
+      '러시안 마켓': 'Russian Market',
+      '중국 식품점': 'Chinese Food Store',
+      '인도 향신료 가게': 'Indian Spice Shop',
+      '필리핀 스토어': 'Philippine Store',
+      '타코 재료점': 'Taco Ingredients Store',
+      '가게 정보를 찾을 수 없습니다': 'Store Information Not Found',
     };
     
     return nameMap[koreanName] || koreanName;
@@ -113,11 +113,11 @@ export default function ShopDetail() {
           </div>
           <div className="info-row">
             <img src={LocationIcon} className="row-icon" alt="address" />
-            <span>{restaurant.address || '주소 정보 없음'}</span>
+            <span>{restaurant.address || restaurant.description || '주소 정보 없음'}</span>
           </div>
           <div className="info-row">
-            <img src={HomeIcon} className="row-icon" alt="likes" />
-            <span>즐겨찾기한 사람 {restaurant.likes ?? 0}명</span>
+            <img src={HomeIcon} className="row-icon" alt="rating" />
+            <span>평점 정보 준비 중</span>
           </div>
         </div>
 
