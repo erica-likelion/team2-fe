@@ -36,7 +36,6 @@ class ApiClient {
     const config: RequestInit = {
       credentials: 'include', // 쿠키 자동 전송
       headers: {
-        'Content-Type': 'application/json',
         'accept': '*/*',
         ...options.headers,
       },
@@ -81,7 +80,10 @@ class ApiClient {
   ): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'POST',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
       body: body ? JSON.stringify(body) : undefined,
     });
   }
