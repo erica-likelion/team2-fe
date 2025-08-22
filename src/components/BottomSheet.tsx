@@ -1,21 +1,12 @@
 import React, { useRef, useImperativeHandle, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { type StoreData } from '../constants/demoStores';
 import './BottomSheet.css';
 import filterButtonIcon from "../assets/icons/AdjustmentsOutline.svg";
 import locationIcon from "../assets/icons/StarBadge.svg";
 
-
-interface Restaurant {
-  id: number;
-  name: string;
-  description: string;
-  hours: string;
-  tags: string[];
-  image: string;
-}
-
 interface BottomSheetProps {
-  restaurants: Restaurant[];
+  restaurants: StoreData[];
   isExpanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
 }
@@ -49,7 +40,7 @@ const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(({ restaurants,
     e.stopPropagation();
   };
 
-  const handleCardClick = (restaurant: Restaurant) => {
+  const handleCardClick = (restaurant: StoreData) => {
     navigate(`/shop/${restaurant.id}`, { state: { restaurant } });
   };
 

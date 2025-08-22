@@ -1,11 +1,15 @@
 .shop-page {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 430px;
-  margin: 0 auto;
+  max-width: var(--view-max-width);
   height: 100vh;
+  z-index: 1000; /* navbar보다 높은 z-index로 설정 */
   display: flex;
   flex-direction: column;
   background-color: #fff;
+  overflow-y: auto;
 }
 
 .shop-header {

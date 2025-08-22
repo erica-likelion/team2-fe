@@ -7,16 +7,14 @@ import './OnboardingFinish.css';
 export default function OnboardingFinish() {
   const navigate = useNavigate();
 
-  const handleBackClick = () => {
-    navigate(-1); 
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/home");
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
+
+  const totalSteps = 3; // 온보딩 총 단계 수
 
   return (
     <div className="onboarding-finish-container">
