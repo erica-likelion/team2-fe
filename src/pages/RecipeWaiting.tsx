@@ -1,4 +1,3 @@
-import React from "react";
 import "./RecipeWaiting.css";
 import waitinglogo from "../assets/waitinglogo.png"
 import loader from "../assets/loader.png"
