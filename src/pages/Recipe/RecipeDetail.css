@@ -193,6 +193,13 @@
   font-weight: 500;
 }
 
+.ingredient-price {
+  font-size: 14px;
+  color: #666;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
 /* Cooking Process */
 .cooking-process {
   padding: 0 20px;

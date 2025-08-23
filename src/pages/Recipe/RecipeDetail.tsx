@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import type { Recipe, RecipeIngredient } from '../../services/api';
 import Navbar from '../../components/Navbar';
 import './RecipeDetail.css';
 import menuImg from '../../assets/menuImg.svg';
@@ -10,6 +12,51 @@ const RecipeDetail = () => {
   const [activeTab, setActiveTab] = useState('ingredients');
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // 안전한 값 접근을 위한 헬퍼 함수들
+  const getSafeValue = (value: string | null | undefined, defaultValue: string = "(미제공)"): string => {
+    return value && value.trim() !== "" ? value : defaultValue;
+  };
+
+  const getSafeNumber = (value: number | null | undefined, defaultValue: number = 0): number => {
+    return value !== null && value !== undefined && !isNaN(value) ? value : defaultValue;
+  };
+
+  const getSafeIngredients = (ingredients: RecipeIngredient[] | null | undefined) => {
+    if (!Array.isArray(ingredients) || ingredients.length === 0) {
+      return [{ name: "재료 정보", amount: "(미제공)", estimatedPrice: "" }];
+    }
+    return ingredients.map(ingredient => ({
+      name: getSafeValue(ingredient?.name, "재료명 미제공"),
+      amount: getSafeValue(ingredient?.amount, ""),
+      estimatedPrice: getSafeValue(ingredient?.estimatedPrice, "")
+    }));
+  };
+
+  const getSafeInstructions = (instructions: string[] | null | undefined) => {
+    if (!Array.isArray(instructions) || instructions.length === 0) {
+      return ["조리법 정보가 제공되지 않았습니다."];
+    }
+    return instructions.filter(instruction => instruction && instruction.trim() !== "");
+  };
+
+  useEffect(() => {
+    // location.state에서 레시피 데이터를 가져옴
+    const state = location.state as { recipes?: Recipe[], storeInfo?: unknown } | null;
+    
+    if (state?.recipes && state.recipes.length > 0) {
+      // 첫 번째 레시피를 현재 레시피로 설정 (나중에 여러 레시피 중 선택할 수 있도록 확장 가능)
+      setCurrentRecipe(state.recipes[0]);
+    } else {
+      // 레시피 데이터가 없으면 홈으로 이동
+      console.warn('No recipe data found, redirecting to home');
+      navigate('/home');
+    }
+  }, [location.state, navigate]);
 
   const handleCheckboxClick = (index: number) => {
     const newCheckedItems = new Set(checkedItems);
@@ -24,6 +71,17 @@ const RecipeDetail = () => {
   const handleBookmarkClick = () => {
     setIsBookmarked(!isBookmarked);
   };
+
+  // 레시피가 로드되지 않은 경우 로딩 표시
+  if (!currentRecipe) {
+    return (
+      <div className="recipe-detail-container">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          레시피를 불러오는 중...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="recipe-detail-container">
@@ -47,19 +105,19 @@ const RecipeDetail = () => {
           <div className="metadata-icon">
             <img src={clock} alt="clock" />
           </div>
-          <span>25분</span>
+          <span>{getSafeNumber(currentRecipe.cookingTime)}분</span>
         </div>
         <div className="metadata-item">
           <div className="metadata-icon">
             <img src={user} alt="user" />
           </div>
-          <span>1인분</span>
+          <span>{getSafeValue(currentRecipe.cuisine, "요리 타입")}</span>
         </div>
         <div className="metadata-item">
           <div className="metadata-icon">
             <img src={level} alt="level" />
           </div>
-          <span>쉬움</span>
+          <span>{getSafeValue(currentRecipe.difficulty, "난이도")}</span>
         </div>
       </div>
       </div>
@@ -67,11 +125,10 @@ const RecipeDetail = () => {
 
       {/* Recipe Title and Description */}
       <div className="recipe-info">
-        <h1 className="recipe-title-korean">카쵸 에 페페</h1>
-        <h2 className="recipe-title-english">Cacio e Pepe</h2>
+        <h1 className="recipe-title-korean">{getSafeValue(currentRecipe.name, "레시피명")}</h1>
+        <h2 className="recipe-title-english">{getSafeValue(currentRecipe.cuisine, "요리")} Recipe</h2>
         <div className="recipe-description">
-          <p>간단한 볶음 요리를 좋아하는 AEAO님에게 추천해요</p>
-          <p>쉽게 요리할 수 있어요</p>
+          <p>{getSafeValue(currentRecipe.description, "레시피 설명이 제공되지 않았습니다.")}</p>
         </div>
       </div>
 
@@ -94,69 +151,31 @@ const RecipeDetail = () => {
       {/* Content based on active tab */}
       {activeTab === 'ingredients' && (
         <div className="ingredients-list">
-          <div className="ingredient-item">
-            <div 
-              className={`checkbox ${checkedItems.has(0) ? 'checked' : ''}`}
-              onClick={() => handleCheckboxClick(0)}
-            ></div>
-            <span>토나렐리 파스타 100g</span>
-          </div>
-          <div className="ingredient-item">
-            <div 
-              className={`checkbox ${checkedItems.has(1) ? 'checked' : ''}`}
-              onClick={() => handleCheckboxClick(1)}
-            ></div>
-            <span>페코리노 로마노 치즈 80g</span>
-          </div>
-          <div className="ingredient-item">
-            <div 
-              className={`checkbox ${checkedItems.has(2) ? 'checked' : ''}`}
-              onClick={() => handleCheckboxClick(2)}
-            ></div>
-            <span>흑후추 1큰술</span>
-          </div>
-          <div className="ingredient-item">
-            <div 
-              className={`checkbox ${checkedItems.has(3) ? 'checked' : ''}`}
-              onClick={() => handleCheckboxClick(3)}
-            ></div>
-            <span>굵은 소금</span>
-          </div>
+          {getSafeIngredients(currentRecipe.ingredients).map((ingredient, index) => (
+            <div key={index} className="ingredient-item">
+              <div 
+                className={`checkbox ${checkedItems.has(index) ? 'checked' : ''}`}
+                onClick={() => handleCheckboxClick(index)}
+              ></div>
+              <span>{ingredient.name} {ingredient.amount}</span>
+              {ingredient.estimatedPrice && ingredient.estimatedPrice.trim() !== "" && (
+                <span className="ingredient-price">({ingredient.estimatedPrice})</span>
+              )}
+            </div>
+          ))}
         </div>
       )}
 
       {activeTab === 'cooking' && (
         <div className="cooking-process">
-          <div className="cooking-step">
-            <div className="step-number">1</div>
-            <div className="step-content">
-              <p>파스타를 끓는 소금물에 넣고 8-10분간 삶습니다.</p>
+          {getSafeInstructions(currentRecipe.instructions).map((instruction, index) => (
+            <div key={index} className="cooking-step">
+              <div className="step-number">{index + 1}</div>
+              <div className="step-content">
+                <p>{instruction}</p>
+              </div>
             </div>
-          </div>
-          <div className="cooking-step">
-            <div className="step-number">2</div>
-            <div className="step-content">
-              <p>치즈를 갈아서 준비하고 후추를 갈아둡니다.</p>
-            </div>
-          </div>
-          <div className="cooking-step">
-            <div className="step-number">3</div>
-            <div className="step-content">
-              <p>파스타 삶은 물을 조금 남겨두고 파스타를 건져냅니다.</p>
-            </div>
-          </div>
-          <div className="cooking-step">
-            <div className="step-number">4</div>
-            <div className="step-content">
-              <p>팬에 치즈와 후추를 넣고 파스타 삶은 물을 조금씩 넣어가며 섞습니다.</p>
-            </div>
-          </div>
-          <div className="cooking-step">
-            <div className="step-number">5</div>
-            <div className="step-content">
-              <p>파스타를 넣고 잘 섞어 완성합니다.</p>
-            </div>
-          </div>
+          ))}
         </div>
       )}
 
