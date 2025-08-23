@@ -8,13 +8,18 @@
   padding-bottom: 40px; /* Space for floating buttons */
 }
 
+
 .menu-header {
   width: 100%;
   max-width: var(--view-max-width);
   padding: 20px 30px;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start; 
+  justify-content: flex-start;
+  background-color: #F9F9F9; 
+  position: relative;
+  z-index: 1;
+  margin-left: 0;
 }
 
 .menu-title {
@@ -22,16 +27,17 @@
   color: #000 !important;
   font-size: 26px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%; /* 31.2px */
   letter-spacing: -0.6px;
   text-align: left;
+  margin: 0;
+  width: 100%; /* 전체 너비 사용 */
 }
 
 /* Character and Speech Bubble Section */
 .character-section {
   width: 100%;
-  max-width: var(--view-max-width);
+  max-width: 480px; /* var(--view-max-width) 대신 명시적 값 사용 */
   display: flex;
   align-items: center;
   justify-content: start;
@@ -39,6 +45,9 @@
   margin-bottom: 15px;
   padding: 0 30px;
   margin-top: -10px;
+  background-color: #F9F9F9;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .speech-bubble {
@@ -79,6 +88,18 @@
   margin-bottom: 4px;
 }
 
+/* Recent Store Count */
+.recentstore {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: inline-block;
+}
+
 /* Recipe Card */
 .recipe-card {
   min-width: calc(100% - 100px);
@@ -94,8 +115,8 @@
 .recipe-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
+  align-items: center; 
   flex: 1;
 }
 
@@ -139,7 +160,6 @@
   letter-spacing: -0.4px;
 }
 
-
 .recipe-link {
   text-align: right;
   font-size: 14px;
@@ -164,7 +184,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: var(--view-max-width);
+  max-width: 480px;
   display: flex;
   gap: 15px;
   align-items: center;
