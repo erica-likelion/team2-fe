@@ -1,21 +1,9 @@
 
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./RecipeWaiting.css";
 import waitinglogo from "../../assets/waitinglogo.png"
 import loader from "../../assets/loader.png"
 
 export default function RecipeWaiting() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate('/recipe-detail');
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [navigate]);
-
   return (
     <div className="loading-container">
               <div className="loader-wrapper">

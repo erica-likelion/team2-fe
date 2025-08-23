@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
+import { aiRecipeApi } from '../../services/api';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
 import ClipboardIcon from '@/assets/icons/ClipboardListOutline.svg';
@@ -11,6 +12,7 @@ export default function ShopDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+  const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
 
   const restaurant = useMemo<StoreData>(() => {
     const state = (location.state as { restaurant?: StoreData })?.restaurant;
@@ -53,8 +55,35 @@ export default function ShopDetail() {
   };
 
   const handleBack = () => navigate(-1);
-  const handleOrder = () => {
-    navigate('/menu');
+
+  const handleAIRecipeRecommendation = async () => {
+    if (isLoadingRecipe) return; // 이미 로딩 중이면 중복 요청 방지
+    
+    try {
+      setIsLoadingRecipe(true);
+      
+      // RecipeWaiting 페이지로 이동
+      navigate('/recipe-waiting');
+      
+      // AI 레시피 추천 API 호출
+      const recipeResponse = await aiRecipeApi.recommendRecipes(restaurant.id, "none");
+      
+      // API 응답을 RecipeDetail 페이지로 전달하며 이동
+      navigate('/recipe-detail', { 
+        state: { 
+          recipes: recipeResponse.recipes,
+          storeInfo: restaurant 
+        }
+      });
+      
+    } catch (error) {
+      console.error('AI 레시피 추천 요청 실패:', error);
+      // 에러 발생 시 사용자에게 알리고 이전 페이지로 돌아감
+      alert('레시피 추천 요청에 실패했습니다. 다시 시도해주세요.');
+      navigate(-1);
+    } finally {
+      setIsLoadingRecipe(false);
+    }
   };
 
   return (
@@ -134,7 +163,15 @@ export default function ShopDetail() {
 
       {/* Bottom Action */}
       <div className="shop-footer">
-        <button className="recommend-button" onClick={handleOrder}><span className="recommend-label">AI에게 레시피 추천받기</span></button>
+        <button 
+          className="recommend-button" 
+          onClick={handleAIRecipeRecommendation}
+          disabled={isLoadingRecipe}
+        >
+          <span className="recommend-label">
+            {isLoadingRecipe ? '레시피 준비 중...' : 'AI에게 레시피 추천받기'}
+          </span>
+        </button>
       </div>
     </div>
   );
