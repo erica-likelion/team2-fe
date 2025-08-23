@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { Recipe, RecipeIngredient } from '../../services/api';
 import Navbar from '../../components/Navbar';
@@ -16,6 +16,28 @@ const RecipeDetail = () => {
   
   const location = useLocation();
   const navigate = useNavigate();
+
+  // 개발용 플레이스홀더 레시피 데이터
+  const placeholderRecipe: Recipe = useMemo(() => ({
+    name: "카쵸 에 페페",
+    cuisine: "이탈리아",
+    difficulty: "쉬움",
+    cookingTime: 25,
+    ingredients: [
+      { name: "토나렐리 파스타", amount: "100g", estimatedPrice: "2,000원" },
+      { name: "페코리노 로마노 치즈", amount: "80g", estimatedPrice: "3,500원" },
+      { name: "흑후추", amount: "1큰술", estimatedPrice: "500원" },
+      { name: "굵은 소금", amount: "적당량", estimatedPrice: "200원" }
+    ],
+    instructions: [
+      "파스타를 끓는 소금물에 넣고 8-10분간 삶습니다.",
+      "치즈를 갈아서 준비하고 후추를 갈아둡니다.",
+      "파스타 삶은 물을 조금 남겨두고 파스타를 건져냅니다.",
+      "팬에 치즈와 후추를 넣고 파스타 삶은 물을 조금씩 넣어가며 섞습니다.",
+      "파스타를 넣고 잘 섞어 완성합니다."
+    ],
+    description: "간단한 볶음 요리를 좋아하는 AEAO님에게 추천해요. 쉽게 요리할 수 있어요."
+  }), []);
 
   // 안전한 값 접근을 위한 헬퍼 함수들
   const getSafeValue = (value: string | null | undefined, defaultValue: string = "(미제공)"): string => {
@@ -52,11 +74,11 @@ const RecipeDetail = () => {
       // 첫 번째 레시피를 현재 레시피로 설정 (나중에 여러 레시피 중 선택할 수 있도록 확장 가능)
       setCurrentRecipe(state.recipes[0]);
     } else {
-      // 레시피 데이터가 없으면 홈으로 이동
-      console.warn('No recipe data found, redirecting to home');
-      navigate('/home');
+      // 레시피 데이터가 없으면 개발용 플레이스홀더 사용
+      console.warn('No recipe data found, using placeholder recipe for development');
+      setCurrentRecipe(placeholderRecipe);
     }
-  }, [location.state, navigate]);
+  }, [location.state, navigate, placeholderRecipe]);
 
   const handleCheckboxClick = (index: number) => {
     const newCheckedItems = new Set(checkedItems);
@@ -72,16 +94,8 @@ const RecipeDetail = () => {
     setIsBookmarked(!isBookmarked);
   };
 
-  // 레시피가 로드되지 않은 경우 로딩 표시
-  if (!currentRecipe) {
-    return (
-      <div className="recipe-detail-container">
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          레시피를 불러오는 중...
-        </div>
-      </div>
-    );
-  }
+  // currentRecipe 가 아직 설정되지 않았으면 로딩 상태 표시
+  if (!currentRecipe) return null;
 
   return (
     <div className="recipe-detail-container">
