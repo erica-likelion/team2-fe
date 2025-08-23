@@ -1,7 +1,8 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
-import { aiRecipeApi } from '../../services/api';
+import { aiRecipeApi, groceryProductsApi, type Product } from '../../services/api';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
 import ClipboardIcon from '@/assets/icons/ClipboardListOutline.svg';
@@ -13,6 +14,10 @@ export default function ShopDetail() {
   const location = useLocation();
   const params = useParams();
   const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
+  const [activeTab, setActiveTab] = useState('products'); // 판매 상품이 첫 번째 탭
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(false);
+  const [productError, setProductError] = useState<string | null>(null);
 
   const restaurant = useMemo<StoreData>(() => {
     const state = (location.state as { restaurant?: StoreData })?.restaurant;
@@ -86,6 +91,29 @@ export default function ShopDetail() {
     }
   };
 
+  // 상품 목록 로드
+  useEffect(() => {
+    const loadProducts = async () => {
+      setIsLoadingProducts(true);
+      setProductError(null);
+      
+      try {
+        const response = await groceryProductsApi.getGroceryProducts(restaurant.id);
+        setProducts(response.products);
+      } catch (error) {
+        console.error('상품 목록 로드 실패:', error);
+        setProductError('상품 목록을 불러오는데 실패했습니다.');
+        setProducts([]); // 빈 배열로 초기화
+      } finally {
+        setIsLoadingProducts(false);
+      }
+    };
+
+    if (restaurant.id) {
+      loadProducts();
+    }
+  }, [restaurant.id]);
+
   return (
     <div className="shop-page">
       {/* Header */}
@@ -151,13 +179,113 @@ export default function ShopDetail() {
         </div>
 
         <div className="tabs">
-          <button className="tab active">상세 정보</button>
-          <button className="tab">위치</button>
-          <button className="tab">후기</button>
+          <button 
+            className={`tab ${activeTab === 'products' ? 'active' : ''}`}
+            onClick={() => setActiveTab('products')}
+          >
+            판매 상품
+          </button>
+          <button 
+            className={`tab ${activeTab === 'details' ? 'active' : ''}`}
+            onClick={() => setActiveTab('details')}
+          >
+            상세 정보
+          </button>
+          <button 
+            className={`tab ${activeTab === 'location' ? 'active' : ''}`}
+            onClick={() => setActiveTab('location')}
+          >
+            위치
+          </button>
+          <button 
+            className={`tab ${activeTab === 'reviews' ? 'active' : ''}`}
+            onClick={() => setActiveTab('reviews')}
+          >
+            후기
+          </button>
         </div>
 
-        <div className="shop-description">
-          {restaurant.description || '가게 설명이 준비되어 있지 않습니다.'}
+        {/* Tab Content */}
+        <div className="tab-content">
+          {activeTab === 'products' && (
+            <div className="products-section">
+              {isLoadingProducts ? (
+                <div className="loading-message">상품 목록을 불러오는 중...</div>
+              ) : productError ? (
+                <div className="error-message">{productError}</div>
+              ) : products.length > 0 ? (
+                <div className="products-grid">
+                  {products.map((product) => (
+                    <div key={product.id} className="product-card">
+                      <div className="product-image">
+                        <img 
+                          src={product.imageUrl} 
+                          alt={product.name}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'https://via.placeholder.com/150x150?text=No+Image';
+                          }}
+                        />
+                      </div>
+                      <div className="product-info">
+                        <h3 className="product-name">{product.name}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-products-message">등록된 상품이 없습니다.</div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'details' && (
+            <div className="shop-description">
+              {restaurant.description || '가게 설명이 준비되어 있지 않습니다.'}
+            </div>
+          )}
+
+          {activeTab === 'location' && (
+            <div className="location-section">
+              <div className="location-info">
+                <div className="address-info">
+                  <h3>주소</h3>
+                  <p>{restaurant.address || restaurant.description || '주소 정보 없음'}</p>
+                </div>
+                <div className="map-container">
+                  <Map
+                    center={{
+                      lat: restaurant.position.lat,
+                      lng: restaurant.position.lng,
+                    }}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      borderRadius: "8px"
+                    }}
+                    level={3}
+                    draggable={false}
+                    scrollwheel={false}
+                    keyboardShortcuts={false}
+                  >
+                    <MapMarker
+                      position={{
+                        lat: restaurant.position.lat,
+                        lng: restaurant.position.lng,
+                      }}
+                      title={restaurant.name}
+                    />
+                  </Map>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <div className="reviews-section">
+              <p>현재 준비 중입니다.</p>
+            </div>
+          )}
         </div>
       </section>
 
