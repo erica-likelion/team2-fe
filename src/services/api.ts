@@ -158,6 +158,7 @@ export interface Recipe {
   cuisine: string | null;
   difficulty: string | null;
   cookingTime: number | null;
+  thumbnail: string | null;
   ingredients: RecipeIngredient[] | null;
   instructions: string[] | null;
   description: string | null;
