@@ -9,6 +9,7 @@ import OnboardingFinish from './pages/OnboardingFinish'
 import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
 import MenuPage from './pages/MenuPage'
+import RecipeWaiting from './pages/RecipeWaiting'
 import UserPage from './pages/UserPage'
 import ShopDetail from './pages/ShopDetail'
 import './App.css'
@@ -76,7 +77,7 @@ function App() {
   }
 
   return renderAppContent();
-
+  
   // 앱 콘텐츠 렌더링 함수
   function renderAppContent() {
     // 랜딩, 온보딩, ShopDetail 페이지일 때는 네비바 없이 렌더링 (풀스크린)
@@ -107,6 +108,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/menu" element={<MenuPage />} />
+            <Route path="/recipe-waiting" element={<RecipeWaiting />} />
             <Route path="/user" element={<UserPage />} />
           </Routes>
         </main>
