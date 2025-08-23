@@ -1,11 +1,11 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { getStoreById, type StoreData } from '../constants/demoStores';
+import { getStoreById, type StoreData } from '../../constants/demoStores';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
 import ClipboardIcon from '@/assets/icons/ClipboardListOutline.svg';
 import HomeIcon from '@/assets/icons/HomeOutline.svg';
-import sharebutton from '../assets/icons/ShareOutline.svg'
+import sharebutton from '../../assets/icons/ShareOutline.svg'
 
 export default function ShopDetail() {
   const navigate = useNavigate();

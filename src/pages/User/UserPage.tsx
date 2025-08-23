@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 import './UserPage.css';
-import usercharacter from '../assets/usercharacter.png'
+import usercharacter from '../../assets/usercharacter.png'
 
 interface Store {
   name: string;

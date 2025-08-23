@@ -4,24 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { getHotStores } from '../constants/demoStores';
+import { getHotStores } from '../../constants/demoStores';
 import './HomePage.css'
 
 // 이미지 import (캐러셀용)
-import store1 from '../assets/images/stores/1.webp'
-import store2 from '../assets/images/stores/2.webp'
+import store1 from '../../assets/images/stores/1.webp'
+import store2 from '../../assets/images/stores/2.webp'
 
 // 음식 카테고리 아이콘 import
-import chineseIcon from '../assets/icons/food/chinese.png'
-import japaneseIcon from '../assets/icons/food/japanese.png'
-import italyIcon from '../assets/icons/food/italy.png'
-import indianIcon from '../assets/icons/food/indian.png'
-import southeastAsianIcon from '../assets/icons/food/southeast_asian.png'
-import frenchIcon from '../assets/icons/food/french.svg'
-import southAmericanIcon from '../assets/icons/food/south_american.svg'
-import americanIcon from '../assets/icons/food/american.svg'
-import alcoholIcon from '../assets/icons/food/alchol.svg'
-import teaCoffeeIcon from '../assets/icons/food/tea_coffee.svg'
+import chineseIcon from '../../assets/icons/food/chinese.png'
+import japaneseIcon from '../../assets/icons/food/japanese.png'
+import italyIcon from '../../assets/icons/food/italy.png'
+import indianIcon from '../../assets/icons/food/indian.png'
+import southeastAsianIcon from '../../assets/icons/food/southeast_asian.png'
+import frenchIcon from '../../assets/icons/food/french.svg'
+import southAmericanIcon from '../../assets/icons/food/south_american.svg'
+import americanIcon from '../../assets/icons/food/american.svg'
+import alcoholIcon from '../../assets/icons/food/alchol.svg'
+import teaCoffeeIcon from '../../assets/icons/food/tea_coffee.svg'
 
 const HomePage = () => {
   const navigate = useNavigate()

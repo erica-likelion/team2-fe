@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 import './RecipeDetail.css';
-import menuImg from '../assets/menuImg.svg';
-import clock from '../assets/icons/clock.svg'
-import user from '../assets/icons/user.svg'
-import level from '../assets/icons/Room Service Streamline Rounded Line - Material Symbols.svg'
+import menuImg from '../../assets/menuImg.svg';
+import clock from '../../assets/icons/clock.svg'
+import user from '../../assets/icons/user.svg'
+import level from '../../assets/icons/Room Service Streamline Rounded Line - Material Symbols.svg'
 
 const RecipeDetail = () => {
   const [activeTab, setActiveTab] = useState('ingredients');

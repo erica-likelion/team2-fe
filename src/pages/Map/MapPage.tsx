@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Map, CustomOverlayMap } from 'react-kakao-maps-sdk';
-import SearchBar from '../components/SearchBar';
-import BottomSheet, { type BottomSheetRef } from '../components/BottomSheet';
-import { demoStores, type StoreData } from '../constants/demoStores';
+import SearchBar from '../../components/SearchBar';
+import BottomSheet, { type BottomSheetRef } from '../../components/BottomSheet';
+import { demoStores, type StoreData } from '../../constants/demoStores';
 import './MapPage.css';
 
 // 한양대 에리카 캠퍼스 좌표

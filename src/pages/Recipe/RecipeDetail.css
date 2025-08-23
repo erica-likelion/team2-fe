@@ -75,7 +75,7 @@
 
 /* Recipe Title and Description */
 .recipe-info {
-  padding: 0 20px 20px 20px;
+  padding: 20px;
   text-align: center;
 }
 
@@ -233,24 +233,4 @@
   color: #333;
   font-size: 16px;
   line-height: 1.5;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .metadata-card {
-    margin: 0 15px 15px 15px;
-    padding: 15px;
-  }
-  
-  .recipe-info {
-    padding: 0 15px 15px 15px;
-  }
-  
-  .tabs-container {
-    margin: 0 15px 15px 15px;
-  }
-  
-  .ingredients-list {
-    padding: 0 15px;
-  }
 }
