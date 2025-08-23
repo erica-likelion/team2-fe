@@ -110,6 +110,7 @@ function App() {
             <Route path="/map" element={<MapPage />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/recipe-waiting" element={<RecipeWaiting />} />
+            <Route path="/recipe-detail" element={<RecipeDetail />} />
             <Route path="/user" element={<UserPage />} />
           </Routes>
         </main>

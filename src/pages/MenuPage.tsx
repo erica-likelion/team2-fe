@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import './MenuPage.css';
@@ -20,9 +19,8 @@ const MenuPage = () => {
   };
 
   return (
-    <div className="page">
-      {/* Header */}
-      <div className="header">
+    <div className="menu-page">
+      <div className="menu-header">
         <h1 className="page-title">오늘의 <span style={{color: '#1F6B43'}}>추천 메뉴</span></h1>
       </div>
 
