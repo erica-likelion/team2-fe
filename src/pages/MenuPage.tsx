@@ -21,7 +21,7 @@ const MenuPage = () => {
   return (
     <div className="menu-page">
       <div className="menu-header">
-        <h1 className="page-title">오늘의 <span style={{color: '#1F6B43'}}>추천 메뉴</span></h1>
+        <h1 className="menu-title">오늘의 <span style={{color: '#1F6B43'}}>추천 메뉴</span></h1>
       </div>
 
       {/* Character and Speech Bubble Section */}
