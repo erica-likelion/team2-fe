@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import './MenuPage.css';
 import menucharacter from '../assets/menucharacter.png' 
-import menuImg from '../assets/menuImg.png'
+import menuImg from '../assets/menuImg.svg'
 
 const MenuPage = () => {
   const navigate = useNavigate();
@@ -30,13 +30,17 @@ const MenuPage = () => {
       <div className="recipe-card">
         <div className="recipe-content">
           <div className="recipe-image">
-            <img src={menuImg} alt="menuImg" width="183" height="183" />
+            <img src={menuImg} alt="menuImg" width="130" height="130" />
           </div>
           <div className="recipe-info">
             <h2 className="recipe-title-korean">카쵸 에 페페</h2>
             <h3 className="recipe-title-english">Cacio e Pepe</h3>
-            <p className="recipe-description">이탈리아 로마의 전통 파스타</p>
-            <p className="recipe-subtitle">간단한 재료로 만드는 깊은 풍미</p>
+
+            <div className="recipe-description">
+              이탈리아 로마의 전통 파스타<br />
+              간단한 재료로 만드는 깊은 풍미
+            </div>
+            
           </div>
         </div>
         <div className="recipe-link" onClick={handleRecipeClick} style={{cursor: 'pointer'}}>

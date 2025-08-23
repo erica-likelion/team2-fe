@@ -1,0 +1,256 @@
+.recipe-detail-container {
+  min-height: 100vh;
+  background-color: white;
+  padding-bottom: 80px;
+}
+
+/* Header with Bookmark */
+.header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  background-color: white;
+}
+
+.bookmark-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bookmark-icon:hover {
+  transform: scale(1.1);
+}
+
+.bookmark-icon.active svg path {
+  fill: #1F6B43;
+}
+
+/* Recipe Main Image */
+.recipe-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  height: 225px;
+  background-color: #F2F2F1;
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+/* Recipe Metadata Card */
+.metadata-card {
+  background-color: rgba(255, 255, 255, 0.90);
+  margin: 14px 30px 0px 30px;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: (0 2px 2px rgba(0, 0, 0, 0.15));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.metadata-icon {
+  font-size: 24px;
+}
+
+.metadata-item span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Recipe Title and Description */
+.recipe-info {
+  padding: 0 20px 20px 20px;
+  text-align: center;
+}
+
+.recipe-title-korean {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 8px 0;
+}
+
+.recipe-title-english {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 16px 0;
+}
+
+.recipe-description {
+  color: #666;
+  line-height: 1.5;
+}
+
+.recipe-description p {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+/* Tabs Navigation */
+.tabs-container {
+  display: flex;
+  margin: 0 20px 20px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab.active {
+  color: #000;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #1F6B43;
+}
+
+.tab:hover {
+  color: #000;
+}
+
+/* Ingredients List */
+.ingredients-list {
+  padding: 0 20px;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1F6B43;
+  border-radius: 4px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.checkbox.checked {
+  background-color: #1F6B43;
+}
+
+.checkbox.checked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") no-repeat center;
+  mask-size: contain;
+}
+
+.ingredient-item span {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Cooking Process */
+.cooking-process {
+  padding: 0 20px;
+}
+
+.cooking-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #1F6B43;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  text-align: left;
+}
+
+.step-content p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .metadata-card {
+    margin: 0 15px 15px 15px;
+    padding: 15px;
+  }
+  
+  .recipe-info {
+    padding: 0 15px 15px 15px;
+  }
+  
+  .tabs-container {
+    margin: 0 15px 15px 15px;
+  }
+  
+  .ingredients-list {
+    padding: 0 15px;
+  }
+}
