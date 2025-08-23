@@ -5,7 +5,7 @@
 }
 
 /* Header with Bookmark */
-.header {
+.recipe-detail-container .header {
   display: flex;
   justify-content: flex-start;
   padding: 20px;
