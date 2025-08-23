@@ -23,6 +23,7 @@ const RecipeDetail = () => {
     cuisine: "이탈리아",
     difficulty: "쉬움",
     cookingTime: 25,
+    thumbnail: null, // 개발용이므로 null로 설정
     ingredients: [
       { name: "토나렐리 파스타", amount: "100g", estimatedPrice: "2,000원" },
       { name: "페코리노 로마노 치즈", amount: "80g", estimatedPrice: "3,500원" },
@@ -111,7 +112,16 @@ const RecipeDetail = () => {
       {/* Recipe Main Image */}
       <div className="recipe-image-container">
         <div className="image-wrapper">
-          <img src={menuImg} alt="menuImg" width="130" height="130" />
+          <img 
+            src={currentRecipe.thumbnail || menuImg} 
+            alt={getSafeValue(currentRecipe.name, "레시피 이미지")} 
+            width="130" 
+            height="130"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = menuImg;
+            }}
+          />
         </div>
         {/* Recipe Metadata Card */}
       <div className="metadata-card">
