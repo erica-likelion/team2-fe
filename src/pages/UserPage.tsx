@@ -21,7 +21,7 @@ const UserPage = () => {
   return (
     <div className="user-page-container">
       {/* Header */}
-      <div className="header">
+      <div className="user-header">
         <div className="edit-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#1F6B43" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
