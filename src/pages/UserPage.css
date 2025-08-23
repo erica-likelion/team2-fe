@@ -5,7 +5,7 @@
 }
 
 /* Header */
-.header {
+.user-header {
   display: flex;
   justify-content: flex-end;
   padding: 20px;
@@ -108,6 +108,18 @@
 /* Recent Stores Section */
 .recent-stores-section {
   padding: 0 20px;
+}
+
+/* Recent Store Count */
+.recentstore {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: inline-block;
 }
 
 .section-title {
