@@ -6,6 +6,13 @@ import menuImg from '../assets/menuImg.svg'
 
 const MenuPage = () => {
   const navigate = useNavigate();
+  const [recentStoreCount, setRecentStoreCount] = useState(0);
+
+  useEffect(() => {
+    // localStorage에서 방문한 가게 수를 가져오기
+    const visitedStores = JSON.parse(localStorage.getItem('visitedStores') || '[]');
+    setRecentStoreCount(visitedStores.length);
+  }, []);
 
   const handleRecipeClick = () => {
     navigate('/recipe-waiting');
@@ -16,7 +23,7 @@ const MenuPage = () => {
       <div className="menu-header">
         <h1 className="page-title">오늘의 <span style={{color: '#1F6B43'}}>추천 메뉴</span></h1>
       </div>
-      
+
       {/* Character and Speech Bubble Section */}
       <div className="character-section">
         <img src={menucharacter} alt="menucharacter" />
@@ -25,9 +32,15 @@ const MenuPage = () => {
           <p>필요한 재료를 구매할 수 있어요!</p>
         </div>
       </div>
+      
+      {/* Recent Store Count */}
+      {recentStoreCount > 0 && (
+        <p className="recentstore">최근 본 가게: {recentStoreCount}개</p>
+      )}
 
       {/* Recipe Card */}
       <div className="recipe-card">
+
         <div className="recipe-content">
           <div className="recipe-image">
             <img src={menuImg} alt="menuImg" width="130" height="130" />
@@ -40,12 +53,12 @@ const MenuPage = () => {
               이탈리아 로마의 전통 파스타<br />
               간단한 재료로 만드는 깊은 풍미
             </div>
-            
           </div>
         </div>
         <div className="recipe-link" onClick={handleRecipeClick} style={{cursor: 'pointer'}}>
           자세한 레시피 보러가기 →
         </div>
+        
       </div>
 
       {/* Floating Action Buttons */}
