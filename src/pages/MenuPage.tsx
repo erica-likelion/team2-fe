@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import './MenuPage.css';
 import menucharacter from '../assets/menucharacter.png' 
