@@ -1,10 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import './MenuPage.css';
 import menucharacter from '../assets/menucharacter.png' 
 import menuImg from '../assets/menuImg.png'
 
 const MenuPage = () => {
+  const navigate = useNavigate();
+
+  const handleRecipeClick = () => {
+    navigate('/recipe-waiting');
+  };
+
   return (
     <div className="page">
       <div className="header">
@@ -33,14 +40,14 @@ const MenuPage = () => {
             <p className="recipe-subtitle">간단한 재료로 만드는 깊은 풍미</p>
           </div>
         </div>
-        <div className="recipe-link">
+        <div className="recipe-link" onClick={handleRecipeClick} style={{cursor: 'pointer'}}>
           자세한 레시피 보러가기 →
         </div>
       </div>
 
       {/* Floating Action Buttons */}
       <div className="floating-buttons">
-        <button className="recommendation-btn">
+        <button className="recommendation-btn" onClick={handleRecipeClick}>
           어떤 레시피를 추천받을까요?
         </button>
         <button className="scroll-top-btn">

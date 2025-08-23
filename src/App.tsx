@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage'
 import HomePage from './pages/HomePage'
 import MapPage from './pages/MapPage'
 import MenuPage from './pages/MenuPage'
+import RecipeWaiting from './pages/RecipeWaiting'
 import UserPage from './pages/UserPage'
 import './App.css'
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/map" element={<MapPage />} />
           <Route path="/menu" element={<MenuPage />} />
+          <Route path="/recipe-waiting" element={<RecipeWaiting />} />
           <Route path="/user" element={<UserPage />} />
         </Routes>
       </main>
