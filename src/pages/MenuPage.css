@@ -8,14 +8,16 @@
   align-items: center;
 }
 
+/*
 .header {
   width: 100%;
   max-width: 480px;
   padding: 20px;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: flex-start; 
 }
+*/
 
 .page-title {
   font-size: 28px;
@@ -32,7 +34,7 @@
 /* Character and Speech Bubble Section */
 .character-section {
   width: 100%;
-  max-width: 480px;
+  max-width: var(--view-max-width);
   display: flex;
   align-items: center;
   gap: 15px;
@@ -153,7 +155,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: var(--view-max-width);
   display: flex;
   gap: 15px;
   align-items: center;
