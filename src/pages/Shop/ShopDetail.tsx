@@ -41,6 +41,29 @@ export default function ShopDetail() {
     };
   }, [location.state, params.id]);
 
+  // 현재 방문 중인 가게 정보를 localStorage에 저장하고 방문 기록에 추가
+  useEffect(() => {
+    if (restaurant && restaurant.name !== '가게 정보를 찾을 수 없습니다') {
+      localStorage.setItem('currentShop', JSON.stringify(restaurant));
+      
+      // 방문한 가게 목록에 추가
+      const visitedStores = JSON.parse(localStorage.getItem('visitedStores') || '[]');
+      const existingStoreIndex = visitedStores.findIndex((store: any) => store.id === restaurant.id);
+      
+      if (existingStoreIndex === -1) {
+        // 새로운 가게면 목록에 추가
+        const storeToAdd = {
+          id: restaurant.id,
+          name: restaurant.name,
+          address: restaurant.address || restaurant.description,
+          image: restaurant.image
+        };
+        visitedStores.push(storeToAdd);
+        localStorage.setItem('visitedStores', JSON.stringify(visitedStores));
+      }
+    }
+  }, [restaurant]);
+
   const convertToEnglish = (koreanName: string): string => {
     const nameMap: { [key: string]: string } = {
       '아시아 마트': 'Asia Mart',

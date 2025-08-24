@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import './UserPage.css';
-import usercharacter from '../../assets/usercharacter.png'
+import usercharacter from '../../assets/usercharacter.png';
+import { getStoreById, type StoreData } from '../../constants/demoStores';
 
 interface Store {
   name: string;
@@ -10,13 +12,50 @@ interface Store {
 }
 
 const UserPage = () => {
+  const location = useLocation();
   const [visitedStores, setVisitedStores] = useState<Store[]>([]);
+  const [currentStore, setCurrentStore] = useState<StoreData | null>(null);
 
   useEffect(() => {
     // localStorage에서 방문한 가게 정보를 가져오기
     const stores = JSON.parse(localStorage.getItem('visitedStores') || '[]');
     setVisitedStores(stores);
+    
+    // localStorage에서 현재 방문 중인 가게 정보 가져오기
+    const updateCurrentStore = () => {
+      const currentShopData = localStorage.getItem('currentShop');
+      console.log('localStorage currentShop:', currentShopData);
+      if (currentShopData) {
+        try {
+          const shopData = JSON.parse(currentShopData);
+          console.log('파싱된 가게 데이터:', shopData);
+          setCurrentStore(shopData);
+        } catch (error) {
+          console.error('현재 가게 정보 파싱 오류:', error);
+        }
+      } else {
+        console.log('currentShop 데이터가 없습니다');
+      }
+    };
+    
+    updateCurrentStore();
+    
+    // 페이지 포커스 시 최신 정보 업데이트
+    const handleFocus = () => {
+      updateCurrentStore();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
+
+  // 현재 표시되는 스토어 개수 계산
+  const currentStoreCount = useMemo(() => {
+    return visitedStores.length; // 방문한 가게 개수
+  }, [visitedStores.length]);
 
   return (
     <div className="user-page-container">
@@ -33,8 +72,9 @@ const UserPage = () => {
       {/* Personal Info Section */}
       <div className="personal-info-section">
         <div className="user-greeting">
-          <h2 className="user-name">AEAO 님</h2>
-          <p className="greeting-message">오늘도 그로서링과 맛있는 하루 되세요!</p>
+          <h2 className="user-name">AEAO <span style={{color: '#000'}}>님</span></h2>
+          <p className="greeting-message">오늘도 그로서링과 <br />
+          맛있는 하루 되세요!</p>
         </div>
         <div className="profile-picture">
           <div className="profile-placeholder">
@@ -74,10 +114,13 @@ const UserPage = () => {
 
       {/* Recently Viewed Stores */}
       <div className="recent-stores-section">
-        <h3 className="section-title">최근 본 가게 <span className="highlight">{visitedStores.length}</span></h3>
+        <h3 className="section-title">최근 본 가게 <span className="highlight">{currentStoreCount}</span></h3>
         {visitedStores.length > 0 ? (
           <div className="store-cards">
-            {visitedStores.map((store, index) => (
+            {visitedStores
+              .slice() // 배열 복사
+              .reverse() // 최신 방문 순으로 정렬
+              .map((store, index) => (
               <div key={index} className="store-card">
                 <div className="store-image">
                   {store.image ? (
@@ -102,7 +145,7 @@ const UserPage = () => {
             ))}
           </div>
         ) : (
-          <p className="no-stores-message">방문한 가게가 없습니다.</p>
+          <p className="no-stores-message">방문한 가게가 없어요</p>
         )}
       </div>
 
