@@ -14,10 +14,22 @@ jobs:
     steps:
       - name: Sync fork using GitHub API
         run: |
-          # GitHub API를 사용해서 포크 리포지토리 동기화
-          curl -X POST \
+          # GitHub API를 사용해서 포크 리포지토리 동기화 (GitHub의 "Sync fork" 버튼과 동일)
+          response=$(curl -s -X POST \
             -H "Authorization: token ${{ secrets.FORK_SYNC_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/pdjdev/team2-fe/merge-upstream \
-            -d '{"branch":"main"}'
-          echo "✅ Fork repository synced with upstream!"
+            -d '{"branch":"main"}')
+          
+          echo "API Response: $response"
+          
+          # 성공 여부 확인
+          if echo "$response" | grep -q '"merged":true'; then
+            echo "✅ Fork repository successfully synced with upstream!"
+          elif echo "$response" | grep -q '"message":"Already up to date"'; then
+            echo "✅ Fork repository is already up to date!"
+          elif echo "$response" | grep -q '"merge_type":"merge"'; then
+            echo "✅ Fork repository synced with merge commit!"
+          else
+            echo "⚠️ Sync completed, but please check the response above"
+          fi
