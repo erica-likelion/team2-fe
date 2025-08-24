@@ -141,6 +141,50 @@ export const sessionApi = {
   },
 };
 
+// AI 레시피 추천 관련 타입 정의
+export interface AIRecipeRequest {
+  storeId: number;
+  additionalRequirements?: string;
+}
+
+export interface RecipeIngredient {
+  name: string | null;
+  amount: string | null;
+  estimatedPrice: string | null;
+}
+
+export interface Recipe {
+  name: string | null;
+  cuisine: string | null;
+  difficulty: string | null;
+  cookingTime: number | null;
+  thumbnail: string | null;
+  ingredients: RecipeIngredient[] | null;
+  instructions: string[] | null;
+  description: string | null;
+}
+
+export interface AIRecipeResponse {
+  recipes: Recipe[];
+}
+
+// 상점 상품 관련 타입 정의
+export interface Product {
+  id: number;
+  name: string;
+  imageUrl: string;
+}
+
+export interface GroceryProductsResponse {
+  groceryId: number;
+  groceryName: string;
+  shotAddress: string;
+  country: string;
+  openTime: string;
+  closeTime: string;
+  products: Product[];
+}
+
 // 사용자 선호도 API 함수들
 export const userPreferencesApi = {
   // 사용자 선호도 저장
@@ -157,6 +201,42 @@ export const userPreferencesApi = {
       return response;
     } catch (error) {
       console.error('Failed to save user preferences:', error);
+      throw error;
+    }
+  },
+};
+
+// AI 레시피 추천 API 함수들
+export const aiRecipeApi = {
+  // AI 레시피 추천 요청
+  async recommendRecipes(storeId: number, additionalRequirements: string = "none"): Promise<AIRecipeResponse> {
+    try {
+      const requestBody = {
+        storeId,
+        additionalRequirements
+      };
+      console.log('Requesting AI recipe recommendations:', requestBody);
+      const response = await apiClient.post<AIRecipeResponse>('/api/ai/recipes/recommend', requestBody);
+      console.log('AI recipe recommendations received:', response);
+      return response;
+    } catch (error) {
+      console.error('Failed to get AI recipe recommendations:', error);
+      throw error;
+    }
+  },
+};
+
+// 상점 상품 API 함수들
+export const groceryProductsApi = {
+  // 상점별 상품 목록 조회
+  async getGroceryProducts(groceryId: number): Promise<GroceryProductsResponse> {
+    try {
+      console.log('Requesting grocery products for store:', groceryId);
+      const response = await apiClient.get<GroceryProductsResponse>(`/api/grocery/${groceryId}/products`);
+      console.log('Grocery products received:', response);
+      return response;
+    } catch (error) {
+      console.error('Failed to get grocery products:', error);
       throw error;
     }
   },

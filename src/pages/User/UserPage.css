@@ -1,0 +1,244 @@
+.user-page-container {
+  min-height: 100%;
+  background-color: white;
+}
+
+/* Header */
+.user-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  background-color: white;
+}
+
+.edit-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.edit-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Personal Info Section */
+.personal-info-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.user-greeting {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1F6B43;
+  margin: 0 0 8px 0;
+}
+
+.greeting-message {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.profile-picture {
+  flex-shrink: 0;
+}
+
+.profile-placeholder {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 36px;
+  background: var(--ApricotShadow, #F6D2AE);
+}
+
+/* Navigation Icons */
+.navigation-icons {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  margin-bottom: 40px;
+}
+
+.nav-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #EFEFEF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.icon-circle:hover {
+  background-color: #1F6B43;
+}
+
+.icon-circle:hover svg path {
+  stroke: white;
+}
+
+.nav-icon-item span {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Recent Stores Section */
+.recent-stores-section {
+  padding: 0 20px;
+}
+
+/* Recent Store Count */
+.recentstore {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px 0;
+}
+
+.highlight {
+  color: #1F6B43;
+}
+
+.store-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.store-card {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.store-image {
+  flex-shrink: 0;
+}
+
+.image-placeholder {
+  width: 80px;
+  height: 80px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.store-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.store-info {
+  flex: 1;
+}
+
+.store-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.store-address {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.location-icon {
+  font-size: 12px;
+}
+
+.no-stores-message {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .personal-info-section {
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .navigation-icons {
+    padding: 0 15px;
+    margin-bottom: 30px;
+  }
+  
+  .recent-stores-section {
+    padding: 0 15px;
+  }
+  
+  .icon-circle {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .profile-placeholder {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .store-card {
+    padding: 12px;
+  }
+  
+  .image-placeholder {
+    width: 70px;
+    height: 70px;
+  }
+}

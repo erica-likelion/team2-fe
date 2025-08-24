@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { preferencesManager } from "../services/preferencesManager";
-import ProgressBar from "../components/ProgressBar";
+import { preferencesManager } from "../../services/preferencesManager";
+import ProgressBar from "../../components/ProgressBar";
 import './Onboarding.css';
 
 export default function Onboarding() {

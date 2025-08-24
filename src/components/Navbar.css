@@ -51,10 +51,6 @@
   transition: color 0.2s ease;
 }
 
-.nav-item.active .nav-icon svg {
-  color: var(--brand-color);
-}
-
 .nav-label {
   font-size: 0.7rem;
   color: var(--text-secondary);

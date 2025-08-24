@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { completeOnboarding } from "../services/preferencesManager";
-import ProgressBar from "../components/ProgressBar";
+import { completeOnboarding } from "../../services/preferencesManager";
+import ProgressBar from "../../components/ProgressBar";
 import './Onboarding.css';
 import './OnboardingFinish.css';
 
