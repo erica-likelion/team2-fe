@@ -5,13 +5,11 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { getHotStores } from '../../constants/demoStores';
+import { eventSamples } from '../../constants/eventSamples';
 import './HomePage.css'
 
 // 이미지 import (캐러셀용)
 import store1 from '../../assets/images/stores/1.webp'
-import store2 from '../../assets/images/stores/2.webp'
-import banner1 from '../../assets/images/banner_1.jpg'
-import banner2 from '../../assets/images/banner_2.jpg'
 
 // 음식 카테고리 아이콘 import
 import chineseIcon from '../../assets/icons/food/chinese.png'
@@ -54,35 +52,6 @@ const HomePage = () => {
     variableWidth: false,
 
   }
-  
-  /*
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding');
-    if (hasCompletedOnboarding != 'true') {
-      navigate('/onboarding');
-    }
-  }, [navigate]);
-  */
-
-  const carouselItems = [
-    {
-      image: banner1,
-      title: '2025년 가을 남미 음식 축제',
-      subtitle: '한양대 ERICA 캠퍼스'
-    },
-    {
-      image: banner2,
-      title: '2025년 세계 바베큐 축제',
-      subtitle: '안산호수공원'
-    },
-    {
-      image: store2,
-      title: '2025년 신년 가을 특집',
-      subtitle: '최신 트렌드 정보'
-    }
-  ]
 
   const storeCategories = [
     { icon: chineseIcon, name: '중국 음식' },
@@ -120,7 +89,7 @@ const HomePage = () => {
       {/* 캐러셀 */}
       <div className="carousel-container">
         <Slider {...carouselSettings}>
-          {carouselItems.map((item, index) => (
+          {eventSamples.map((item, index) => (
             <div key={index} className="carousel-item">
               <img src={item.image} alt={item.title} />
               <div className="carousel-overlay">
