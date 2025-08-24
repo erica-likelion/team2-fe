@@ -1,4 +1,4 @@
-name: Trigger Fork Sync
+name: Auto Sync Fork (Force Override)
 
 on:
   push:
@@ -6,21 +6,25 @@ on:
   workflow_dispatch: # 수동 실행도 가능
 
 jobs:
-  trigger-fork-sync:
+  force-sync-fork:
     runs-on: ubuntu-latest
     # 원본 리포에서만 실행
     if: github.repository == 'erica-likelion/team2-fe'
     
     steps:
-      - name: Trigger fork repository sync
-        uses: peter-evans/repository-dispatch@v2
+      - name: Checkout upstream repository
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.FORK_SYNC_TOKEN }}
-          repository: pdjdev/team2-fe
-          event-type: sync-upstream
-          client-payload: |
-            {
-              "triggered_by": "${{ github.actor }}",
-              "commit_sha": "${{ github.sha }}",
-              "commit_message": "${{ github.event.head_commit.message }}"
-            }
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Force push to fork repository
+        run: |
+          # 포크 리포지토리를 원본에 완전히 맞춤 (강제 덮어쓰기)
+          git remote add fork https://x-access-token:${{ secrets.FORK_SYNC_TOKEN }}@github.com/pdjdev/team2-fe.git
+          git push fork main --force
+          echo "✅ Fork repository forcefully synced with upstream!"
