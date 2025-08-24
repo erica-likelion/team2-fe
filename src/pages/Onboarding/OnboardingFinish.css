@@ -17,29 +17,96 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+}
+
+.onboarding-finish-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.onboarding-finish-image-container {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.onboarding-finish-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  animation: fadeInScale 0.8s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .onboarding-finish-message-box {
   width: 100%;
-  height: 144px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: transparent;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .onboarding-finish-message-text {
-  font-size: 72px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--brand-color);
-  line-height: 100%;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
 .onboarding-finish-message-sub-text {
-  font-size: 40px;
-  color: var(--brand-color);
-  line-height: 100%;
-  margin-top: 32px;
-  opacity: .8;
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* 모바일 대응 */
+@media (max-width: 480px) {
+  .onboarding-finish-image {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .onboarding-finish-image-container {
+    margin-bottom: 32px;
+  }
+  
+  .onboarding-finish-message-text {
+    font-size: 28px;
+  }
+  
+  .onboarding-finish-message-sub-text {
+    font-size: 16px;
+  }
 }
