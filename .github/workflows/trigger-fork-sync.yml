@@ -1,0 +1,24 @@
+name: Trigger Fork Sync
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 수동 실행도 가능
+
+jobs:
+  trigger-fork-sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger fork repository sync
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.FORK_SYNC_TOKEN }}
+          repository: pdjdev/team2-fe
+          event-type: sync-upstream
+          client-payload: |
+            {
+              "triggered_by": "${{ github.actor }}",
+              "commit_sha": "${{ github.sha }}",
+              "commit_message": "${{ github.event.head_commit.message }}"
+            }
