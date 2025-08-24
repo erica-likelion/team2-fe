@@ -1,5 +1,5 @@
 // API 기본 설정
-const API_BASE_URL = import.meta.env.DEV ? '/api' : 'https://aiquiz.shop';
+const API_BASE_URL = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
 // API 응답 타입 정의
 export interface ApiResponse<T = unknown> {
