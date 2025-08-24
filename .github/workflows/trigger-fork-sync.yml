@@ -8,8 +8,8 @@ on:
 jobs:
   trigger-fork-sync:
     runs-on: ubuntu-latest
-    # github-actions[bot]의 커밋은 제외
-    if: github.actor != 'github-actions[bot]'
+    # github-actions[bot]의 커밋은 제외하고, 원본 리포에서만 실행
+    if: github.actor != 'github-actions[bot]' && github.repository == 'erica-likelion/team2-fe'
     
     steps:
       - name: Trigger fork repository sync
