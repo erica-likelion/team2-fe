@@ -1,4 +1,4 @@
-name: Trigger Fork Sync
+name: Sync Fork Repository
 
 on:
   push:
@@ -6,27 +6,18 @@ on:
   workflow_dispatch: # 수동 실행도 가능
 
 jobs:
-  force-sync-fork:
+  sync-fork:
     runs-on: ubuntu-latest
     # 원본 리포에서만 실행
     if: github.repository == 'erica-likelion/team2-fe'
     
     steps:
-      - name: Checkout upstream repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
+      - name: Sync fork using GitHub API
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Force push to fork repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
-        run: |
-          # GitHub CLI를 사용한 더 안전한 방법
-          git remote add fork https://github.com/pdjdev/team2-fe.git
-          git -c credential.helper= -c credential.https://github.com.username=x-access-token -c credential.https://github.com.password=${{ secrets.FORK_SYNC_TOKEN }} push fork main --force
-          echo "✅ Fork repository forcefully synced with upstream!"
+          # GitHub API를 사용해서 포크 리포지토리 동기화
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.FORK_SYNC_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/pdjdev/team2-fe/merge-upstream \
+            -d '{"branch":"main"}'
+          echo "✅ Fork repository synced with upstream!"
