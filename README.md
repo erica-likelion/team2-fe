@@ -4,8 +4,9 @@
 
 ## 초기 환경변수 `.env`
 
-카카오맵 API 이용을 위해 아래처럼 API키 환경변수 셋팅이 필요합니다:
+API 이용을 위해 아래처럼 API키 환경변수 셋팅이 필요합니다:
 
 ```env
 VITE_KAKAO_MAP_API_KEY=(카카오 API키)
+VITE_API_BASE_URL=(BE API BASE 주소)
 ```
