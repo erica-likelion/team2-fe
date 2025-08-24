@@ -5,7 +5,6 @@
   overflow-y: auto;
 }
 
-/* 헤더 */
 .header {
   display: flex;
   justify-content: space-between;
