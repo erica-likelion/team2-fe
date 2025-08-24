@@ -1,4 +1,4 @@
-name: Auto Sync Fork (Force Override)
+name: Trigger Fork Sync
 
 on:
   push:
@@ -23,8 +23,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Force push to fork repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
         run: |
-          # 포크 리포지토리를 원본에 완전히 맞춤 (강제 덮어쓰기)
-          git remote add fork https://x-access-token:${{ secrets.FORK_SYNC_TOKEN }}@github.com/pdjdev/team2-fe.git
-          git push fork main --force
+          # GitHub CLI를 사용한 더 안전한 방법
+          git remote add fork https://github.com/pdjdev/team2-fe.git
+          git -c credential.helper= -c credential.https://github.com.username=x-access-token -c credential.https://github.com.password=${{ secrets.FORK_SYNC_TOKEN }} push fork main --force
           echo "✅ Fork repository forcefully synced with upstream!"
