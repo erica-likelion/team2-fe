@@ -40,23 +40,23 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 20px;
+  gap: 30px;
   margin-bottom: 15px;
-  padding: 0 30px;
+  padding: 0 40px;
   margin-top: -10px;
   background-color: #F9F9F9;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-right: 85px; /* 레시피 카드 오른쪽 끝과 맞춤 (70px + 15px) */
 }
 
 .speech-bubble {
   position: relative;
   height: 80px;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: 16px;
   background: #1F6B43;
-  color: white;
-  padding: 20px;
+  padding: 20px 125px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,9 +78,12 @@
 
 .speech-bubble p {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.4;
-  color: white;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%; /* 19.5px */
+  letter-spacing: -0.375px;
+  color: #BBD7C7;
 }
 
 .speech-bubble p:first-child {
@@ -89,13 +92,13 @@
 
 /* Recipe Card */
 .recipe-card {
-  min-width: calc(100% - 100px);
+  min-width: calc(100% - 70px);
   border-radius: 12px;
   align-items: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  padding: 20px;
-  margin: 20px;
+  padding: 20px 5px 0;
+  margin: -15px 0px 35px;
 }
 
 .recipe-content {
@@ -141,17 +144,17 @@
   color: #767676;
   text-align: center;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.4px;
 }
 
 .recipe-link {
   text-align: right;
-  font-size: 14px;
+  font-size: 12px;
   color: #1E1E1E;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 130%; /* 14.3px */
   letter-spacing: -0.275px;
   margin-bottom: 10px;
@@ -186,9 +189,9 @@
   align-items: center;
   border-radius: 100px;
   border: 2px solid var(--Jade-Green, #2E8B57);
-  background: rgb(225, 251, 236);
+  background: rgba(146, 177, 159, 0.26);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.20);
-  color: #1F6B43;
+  color: #2E8B57;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;

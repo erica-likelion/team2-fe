@@ -29,15 +29,12 @@ const MenuPage = () => {
       <div className="character-section">
         <img src={menucharacter} alt="menucharacter" />
         <div className="speech-bubble">
-          <p>스쿠데리아 디노 에서</p>
+          <p><span style={{color: '#FFFFFF'}}>월드푸드</span>에서</p>
           <p>필요한 재료를 구매할 수 있어요!</p>
         </div>
       </div>
       
-      {/* Recent Store Count */}
-      {recentStoreCount > 0 && (
-        <p className="recentstore">최근 본 가게: {recentStoreCount}개</p>
-      )}
+  
 
       {/* Recipe Card */}
       <div className="recipe-card">
