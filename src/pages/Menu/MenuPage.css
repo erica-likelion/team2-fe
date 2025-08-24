@@ -12,7 +12,7 @@
 .menu-header {
   width: 100%;
   max-width: var(--view-max-width);
-  padding: 20px 30px;
+  padding: 30px 30px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -36,7 +36,7 @@
 /* Character and Speech Bubble Section */
 .character-section {
   width: 100%;
-  max-width: 480px; /* var(--view-max-width) 대신 명시적 값 사용 */
+  max-width: var(--view-max-width);
   display: flex;
   align-items: center;
   justify-content: start;
@@ -45,22 +45,19 @@
   padding: 0 40px;
   margin-top: -10px;
   background-color: #F9F9F9;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 85px; /* 레시피 카드 오른쪽 끝과 맞춤 (70px + 15px) */
+  padding-bottom: 30px;
 }
 
 .speech-bubble {
   position: relative;
-  height: 80px;
-  flex-shrink: 0;
   border-radius: 16px;
   background: #1F6B43;
-  padding: 20px 125px 20px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  flex-grow: 1;
 }
 
 .speech-bubble::after {
@@ -173,7 +170,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: var(--view-max-width);
   display: flex;
   gap: 15px;
   align-items: center;
@@ -190,6 +187,8 @@
   border-radius: 100px;
   border: 2px solid var(--Jade-Green, #2E8B57);
   background: rgba(146, 177, 159, 0.26);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.20);
   color: #2E8B57;
   font-size: 14px;

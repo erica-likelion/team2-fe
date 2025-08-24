@@ -128,19 +128,9 @@
   display: inline-block;
 }
 
-.section-title {
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 160%; /* 32px */
-  letter-spacing: -0.5px;
-  color: #000;
-  margin: 0 0 20px 0;
-}
 
-.highlight {
+.section-title .highlight {
   color: #1F6B43;
-  margin-right: 335px;
 }
 
 .store-cards {

@@ -16,7 +16,9 @@ const MenuPage = () => {
   }, []);
 
   const handleRecipeClick = () => {
-    navigate('/recipe-waiting');
+    navigate('/shop/2', { 
+      state: { fromMenu: true, showToast: true } 
+    });
   };
 
   return (

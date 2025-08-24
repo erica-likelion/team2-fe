@@ -49,18 +49,37 @@
   border-radius: 12px;
 }
 
+/* 이미지 위에 그라데이션 오버레이 추가 */
+.carousel-item::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  top: 10px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    transparent 70%
+  );
+  border-radius: 12px;
+  pointer-events: none;
+}
+
 .carousel-overlay {
   position: absolute;
   bottom: 30px;
   left: 30px;
   color: white;
+  z-index: 1;
 }
 
 .carousel-overlay h3 {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  text-shadow: 0 0 6px black, 0 0 6px black;
+  text-shadow: 0 0 6px black;
 }
 
 .carousel-overlay p {

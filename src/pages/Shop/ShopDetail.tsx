@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
 import { aiRecipeApi, groceryProductsApi, type Product } from '../../services/api';
+import Toast from '../../components/Toast';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
 import ClipboardIcon from '@/assets/icons/ClipboardListOutline.svg';
@@ -18,6 +19,7 @@ export default function ShopDetail() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [productError, setProductError] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState(false);
 
   const restaurant = useMemo<StoreData>(() => {
     const state = (location.state as { restaurant?: StoreData })?.restaurant;
@@ -63,6 +65,14 @@ export default function ShopDetail() {
       }
     }
   }, [restaurant]);
+
+  // 메뉴 페이지에서 넘어왔을 때 토스트 표시
+  useEffect(() => {
+    const state = location.state as { fromMenu?: boolean; showToast?: boolean };
+    if (state?.fromMenu && state?.showToast) {
+      setShowToast(true);
+    }
+  }, [location.state]);
 
   const convertToEnglish = (koreanName: string): string => {
     const nameMap: { [key: string]: string } = {
@@ -324,6 +334,13 @@ export default function ShopDetail() {
           </span>
         </button>
       </div>
+
+      {/* Toast Component */}
+      <Toast
+        message={`'${restaurant.name}' 페이지로 이동합니다.`}
+        show={showToast}
+        onHide={() => setShowToast(false)}
+      />
     </div>
   );
 }
