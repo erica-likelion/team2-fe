@@ -91,22 +91,3 @@
   opacity: 0.8;
 }
 
-/* 모바일 대응 */
-@media (max-width: 480px) {
-  .onboarding-finish-image {
-    width: 160px;
-    height: 160px;
-  }
-  
-  .onboarding-finish-image-container {
-    margin-bottom: 32px;
-  }
-  
-  .onboarding-finish-message-text {
-    font-size: 28px;
-  }
-  
-  .onboarding-finish-message-sub-text {
-    font-size: 16px;
-  }
-}
