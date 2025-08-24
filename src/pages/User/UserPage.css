@@ -35,14 +35,21 @@
 
 .user-name {
   font-size: 24px;
+  font-style: normal;
   font-weight: 700;
+  line-height: 20px; /* 83.333% */
+  letter-spacing: -0.5px;
   color: #1F6B43;
   margin: 0 0 8px 0;
 }
 
 .greeting-message {
-  font-size: 16px;
-  color: #333;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 38.4px */
+  letter-spacing: -0.5px;
+  color: #000;
   margin: 0;
   line-height: 1.4;
 }
@@ -122,14 +129,18 @@
 }
 
 .section-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 32px */
+  letter-spacing: -0.5px;
+  color: #000;
   margin: 0 0 20px 0;
 }
 
 .highlight {
   color: #1F6B43;
+  margin-right: 335px;
 }
 
 .store-cards {
