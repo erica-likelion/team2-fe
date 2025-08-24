@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import './UserPage.css';
 import usercharacter from '../../assets/usercharacter.png';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
 
 interface Store {
+  id: number;
   name: string;
   address: string;
   image?: string;
@@ -13,8 +14,14 @@ interface Store {
 
 const UserPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [visitedStores, setVisitedStores] = useState<Store[]>([]);
   const [currentStore, setCurrentStore] = useState<StoreData | null>(null);
+
+  // handleStoreClick 함수를 컴포넌트 레벨로 이동
+  const handleStoreClick = (storeId: number) => {
+    navigate(`/shop/${storeId}`);
+  };
 
   useEffect(() => {
     // localStorage에서 방문한 가게 정보를 가져오기
@@ -37,7 +44,7 @@ const UserPage = () => {
         console.log('currentShop 데이터가 없습니다');
       }
     };
-    
+
     updateCurrentStore();
     
     // 페이지 포커스 시 최신 정보 업데이트
@@ -121,7 +128,7 @@ const UserPage = () => {
               .slice() // 배열 복사
               .reverse() // 최신 방문 순으로 정렬
               .map((store, index) => (
-              <div key={index} className="store-card">
+              <div key={index} className="store-card" onClick={() => handleStoreClick(store.id)}>
                 <div className="store-image">
                   {store.image ? (
                     <img src={store.image} alt={store.name} />

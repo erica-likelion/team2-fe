@@ -128,8 +128,12 @@
   display: inline-block;
 }
 
+.recent-stores-section .section-title {
+  justify-content: start;
+  gap: 8px;
+}
 
-.section-title .highlight {
+.recent-stores-section .section-title .highlight {
   color: #1F6B43;
 }
 
@@ -175,17 +179,19 @@
 }
 
 .store-info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 5px;
 }
 
-.store-name {
-  font-size: 16px;
+.store-info .store-name {
+  font-size: 17px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 8px 0;
 }
 
-.store-address {
+.store-info .store-address {
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -194,8 +200,9 @@
   gap: 5px;
 }
 
-.location-icon {
-  font-size: 12px;
+.store-info .location-icon {
+  margin: 0;
+  padding-top: 3px;
 }
 
 .no-stores-message {
@@ -206,40 +213,4 @@
   background-color: #f9f9f9;
   border-radius: 12px;
   margin: 10px 0;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .personal-info-section {
-    padding: 15px;
-    margin-bottom: 25px;
-  }
-  
-  .navigation-icons {
-    padding: 0 15px;
-    margin-bottom: 30px;
-  }
-  
-  .recent-stores-section {
-    padding: 0 15px;
-  }
-  
-  .icon-circle {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .profile-placeholder {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .store-card {
-    padding: 12px;
-  }
-  
-  .image-placeholder {
-    width: 70px;
-    height: 70px;
-  }
 }
