@@ -111,6 +111,7 @@ export class SessionManager {
     }
 
     try {
+      console.log('=== RENEWING EXISTING SESSION ===');
       console.log('Renewing session for:', this.guestId);
       console.log('Making request to /renew/session endpoint with guestId:', this.guestId);
       const response = await sessionApi.renewSession(this.guestId);
@@ -124,15 +125,18 @@ export class SessionManager {
       if (response && typeof response === 'string') {
         this.guestId = response;
         localStorage.setItem(GUEST_ID_KEY, response);
+        console.log('Updated guestId after renewal:', response);
       }
       
+      console.log('=== SESSION RENEWAL SUCCESSFUL ===');
       console.log('Session renewed successfully:', response);
       return response;
     } catch (error) {
-      console.error('Failed to renew session, creating new one:', error);
-      // 갱신 실패 시 새 세션 생성
-      this.clearSession();
-      return this.initializeGuestSession();
+      console.error('Failed to renew session with existing guestId:', this.guestId, error);
+      
+      // 갱신 실패 시에도 기존 guestId 정보는 보존하고, 새 세션 생성만 최후 수단으로
+      console.warn('Session renewal failed, but preserving existing user data. Only creating new session if absolutely necessary.');
+      throw error; // 에러를 다시 던져서 상위에서 처리하도록
     }
   }
 
@@ -167,7 +171,10 @@ export class SessionManager {
 
   // 세션 강제 재설정
   async resetSession(): Promise<string> {
+    console.log('=== FORCE RESETTING SESSION ===');
+    console.log('Clearing existing session data...');
     this.clearSession();
+    console.log('Creating brand new session...');
     return this.initializeGuestSession();
   }
 }

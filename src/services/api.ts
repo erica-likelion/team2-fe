@@ -58,8 +58,18 @@ class ApiClient {
           
           try {
             // 순환 import를 피하기 위해 동적 import 사용
-            const { ensureSession } = await import('./sessionManager');
-            await ensureSession(); // 세션 갱신 시도
+            // 400 에러 시에는 기존 guest_id로 세션 갱신 시도 (사용자 정보 보존)
+            const { sessionManager } = await import('./sessionManager');
+            const currentGuestId = sessionManager.getGuestId();
+            
+            if (currentGuestId) {
+              console.log('Attempting to renew existing session for guestId:', currentGuestId);
+              await sessionManager.renewSession();
+            } else {
+              console.log('No existing guestId, creating new session...');
+              await sessionManager.initializeGuestSession();
+            }
+            
             console.log('Session renewal completed, retrying API request...');
             
             // 세션 갱신 후 동일한 요청 재시도
@@ -157,9 +167,12 @@ export const sessionApi = {
   // 게스트 세션 발급
   async createGuestSession(): Promise<string> {
     try {
+      console.log('=== CREATING NEW GUEST SESSION ===');
       console.log('Creating guest session - endpoint: /guest/session');
+      console.log('Making POST request to:', `${API_BASE_URL}/guest/session`);
       const response = await apiClient.post<string>('/guest/session');
       console.log('Guest session created successfully:', response);
+      console.log('=== NEW GUEST SESSION CREATED ===');
       return response;
     } catch (error) {
       console.error('Failed to create guest session:', error);
@@ -170,14 +183,19 @@ export const sessionApi = {
   // 세션 갱신
   async renewSession(guestId: string): Promise<string> {
     try {
+      console.log('=== MAKING SESSION RENEWAL REQUEST ===');
       console.log('Renewing session - endpoint: /renew/session, guestId:', guestId);
+      console.log('Full URL:', `${API_BASE_URL}/renew/session`);
       const requestBody = { guestId };
-      console.log('Renewal request body:', requestBody);
+      console.log('Renewal request body:', JSON.stringify(requestBody));
       const response = await apiClient.post<string>('/renew/session', requestBody);
-      console.log('Session renewed successfully:', response);
+      console.log('Session renewal API response:', response);
+      console.log('=== SESSION RENEWAL REQUEST SUCCESSFUL ===');
       return response;
     } catch (error) {
-      console.error('Failed to renew session:', error);
+      console.error('=== SESSION RENEWAL REQUEST FAILED ===');
+      console.error('Failed to renew session for guestId:', guestId);
+      console.error('Error details:', error);
       throw error;
     }
   },
