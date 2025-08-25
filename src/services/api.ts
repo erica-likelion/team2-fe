@@ -1,6 +1,9 @@
 // API 기본 설정
 const API_BASE_URL = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
+// sessionManager import 추가
+import { ensureSession } from './sessionManager';
+
 // API 응답 타입 정의
 export interface ApiResponse<T = unknown> {
   success: boolean;
@@ -49,6 +52,33 @@ class ApiClient {
       const text = await response.text();
       
       if (!response.ok) {
+        // 400 에러가 발생하고 세션 관련 엔드포인트가 아닌 경우 세션 갱신 시도
+        if (response.status === 400 && !endpoint.includes('/guest/session') && !endpoint.includes('/renew/session')) {
+          console.log('API request failed with 400, attempting session renewal...');
+          try {
+            await ensureSession(); // 세션 갱신 시도
+            console.log('Session renewed, retrying API request...');
+            
+            // 세션 갱신 후 동일한 요청 재시도
+            const retryResponse = await fetch(url, config);
+            const retryText = await retryResponse.text();
+            
+            if (!retryResponse.ok) {
+              throw new Error(`HTTP error! status: ${retryResponse.status}, body: ${retryText}`);
+            }
+            
+            // 재시도 성공 시 결과 반환
+            try {
+              return JSON.parse(retryText);
+            } catch {
+              return retryText as T;
+            }
+          } catch (sessionError) {
+            console.error('Session renewal failed:', sessionError);
+            // 세션 갱신도 실패한 경우 원래 에러 반환
+          }
+        }
+        
         throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
       }
 

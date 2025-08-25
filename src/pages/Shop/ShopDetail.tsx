@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
 import { aiRecipeApi, groceryProductsApi, type Product } from '../../services/api';
+import { ensureSession } from '../../services/sessionManager';
 import Toast from '../../components/Toast';
 import './ShopDetail.css';
 import LocationIcon from '@/assets/icons/LocationMarkerOutline.svg';
@@ -102,6 +103,11 @@ export default function ShopDetail() {
       
       // RecipeWaiting 페이지로 이동
       navigate('/recipe-waiting');
+      
+      // 세션 확보 (만료된 경우 갱신)
+      console.log('Ensuring session before recipe request...');
+      await ensureSession();
+      console.log('Session ensured successfully');
       
       // AI 레시피 추천 API 호출
       const recipeResponse = await aiRecipeApi.recommendRecipes(restaurant.id, "none");

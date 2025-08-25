@@ -116,7 +116,13 @@ export class SessionManager {
       const expiryTime = Date.now() + SESSION_DURATION;
       localStorage.setItem(SESSION_EXPIRY_KEY, expiryTime.toString());
       
-      console.log('Session renewed successfully');
+      // 갱신된 세션 ID가 다를 수 있으므로 업데이트
+      if (response && typeof response === 'string') {
+        this.guestId = response;
+        localStorage.setItem(GUEST_ID_KEY, response);
+      }
+      
+      console.log('Session renewed successfully:', response);
       return response;
     } catch (error) {
       console.error('Failed to renew session, creating new one:', error);
@@ -128,7 +134,9 @@ export class SessionManager {
 
   // 세션 확보 (없으면 생성, 만료되었으면 갱신)
   async ensureSession(): Promise<string> {
+    // 세션이 없거나 만료된 경우 새로 생성
     if (!this.isSessionValid()) {
+      console.log('Session is invalid or expired, creating new session...');
       return this.initializeGuestSession();
     }
     
@@ -140,10 +148,16 @@ export class SessionManager {
       
       if ((expiryTime - Date.now()) < twoHours) {
         console.log('Session expiring soon, renewing...');
-        return this.renewSession();
+        try {
+          return await this.renewSession();
+        } catch (error) {
+          console.error('Failed to renew expiring session, creating new one:', error);
+          return this.initializeGuestSession();
+        }
       }
     }
     
+    console.log('Using existing valid session:', this.guestId);
     return this.guestId!;
   }
 
