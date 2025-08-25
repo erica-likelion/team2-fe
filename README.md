@@ -5,7 +5,7 @@
 
 #### 멋쟁이사자처럼 13기 X 한양대 ERICA: 중앙해커톤 TEAM AEAO
 
-**📱 PWA(Progressive Web App) 기반 모바일 웹 애플리케이션**
+<img width="1920" height="1080" alt="PPT01" src="https://github.com/user-attachments/assets/b2a7b171-20e6-4136-b3ae-a8c25eae761a" />
 
 </div>
 
