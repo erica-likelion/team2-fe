@@ -40,8 +40,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
-  border-radius: 20px;
+  /* overflow: hidden; */  
+}
+
+.image-wrapper img {
+  border-radius: 12px;
 }
 
 /* Recipe Metadata Card */
