@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import type { Recipe, RecipeIngredient } from '../../services/api';
 import Navbar from '../../components/Navbar';
 import './RecipeDetail.css';
-import menuImg from '../../assets/menuImg.svg';
+import menuImg from '../../assets/menu_default.png';
 import clock from '../../assets/icons/clock.svg'
 import user from '../../assets/icons/user.svg'
 import level from '../../assets/icons/Room Service Streamline Rounded Line - Material Symbols.svg'
