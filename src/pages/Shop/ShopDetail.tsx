@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getStoreById, type StoreData } from '../../constants/demoStores';
 import { aiRecipeApi, groceryProductsApi, type Product } from '../../services/api';
@@ -21,6 +21,7 @@ export default function ShopDetail() {
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [productError, setProductError] = useState<string | null>(null);
   const [showToast, setShowToast] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   const restaurant = useMemo<StoreData>(() => {
     const state = (location.state as { restaurant?: StoreData })?.restaurant;
@@ -163,20 +164,44 @@ export default function ShopDetail() {
     }
   }, [restaurant.id]);
 
+  // 스크롤 이벤트로 header 스타일 변경
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current) {
+        const scrollTop = window.scrollY;
+        const opacity = Math.min(scrollTop / 100, 0.95); // 스크롤에 따라 0에서 0.95까지
+        const blur = Math.min(scrollTop / 10, 15); // 스크롤에 따라 blur 강도 조절
+        
+        headerRef.current.style.background = `rgba(255, 255, 255, ${0.8 + opacity * 0.2})`;
+        headerRef.current.style.backdropFilter = `blur(${10 + blur}px) saturate(180%)`;
+        (headerRef.current.style as any).webkitBackdropFilter = `blur(${10 + blur}px) saturate(180%)`;
+        
+        if (scrollTop > 50) {
+          headerRef.current.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+          headerRef.current.style.boxShadow = 'none';
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="shop-page">
       {/* Header */}
-      <header className="shop-header">
-                <button className="icon-button" onClick={handleBack} aria-label="뒤로가기">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                d="M15 18L9 12L15 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                />
-            </svg>
+      <header className="shop-header" ref={headerRef}>
+            <button className="icon-button" onClick={handleBack} aria-label="뒤로가기">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                  d="M15 18L9 12L15 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  />
+              </svg>
             </button>
         <div className="header-actions">
           <button className="sharebutton" aria-label="공유">
