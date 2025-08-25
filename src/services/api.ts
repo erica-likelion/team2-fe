@@ -1,9 +1,6 @@
 // API 기본 설정
 const API_BASE_URL = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
-// sessionManager import 추가
-import { ensureSession } from './sessionManager';
-
 // API 응답 타입 정의
 export interface ApiResponse<T = unknown> {
   success: boolean;
@@ -55,13 +52,22 @@ class ApiClient {
         // 400 에러가 발생하고 세션 관련 엔드포인트가 아닌 경우 세션 갱신 시도
         if (response.status === 400 && !endpoint.includes('/guest/session') && !endpoint.includes('/renew/session')) {
           console.log('API request failed with 400, attempting session renewal...');
+          console.log('Failed endpoint:', endpoint);
+          console.log('Response status:', response.status);
+          console.log('Response body:', text);
+          
           try {
+            // 순환 import를 피하기 위해 동적 import 사용
+            const { ensureSession } = await import('./sessionManager');
             await ensureSession(); // 세션 갱신 시도
-            console.log('Session renewed, retrying API request...');
+            console.log('Session renewal completed, retrying API request...');
             
             // 세션 갱신 후 동일한 요청 재시도
             const retryResponse = await fetch(url, config);
             const retryText = await retryResponse.text();
+            
+            console.log('Retry response status:', retryResponse.status);
+            console.log('Retry response body:', retryText);
             
             if (!retryResponse.ok) {
               throw new Error(`HTTP error! status: ${retryResponse.status}, body: ${retryText}`);
@@ -151,7 +157,9 @@ export const sessionApi = {
   // 게스트 세션 발급
   async createGuestSession(): Promise<string> {
     try {
+      console.log('Creating guest session - endpoint: /guest/session');
       const response = await apiClient.post<string>('/guest/session');
+      console.log('Guest session created successfully:', response);
       return response;
     } catch (error) {
       console.error('Failed to create guest session:', error);
@@ -162,7 +170,11 @@ export const sessionApi = {
   // 세션 갱신
   async renewSession(guestId: string): Promise<string> {
     try {
-      const response = await apiClient.post<string>('/renew/session', { guestId });
+      console.log('Renewing session - endpoint: /renew/session, guestId:', guestId);
+      const requestBody = { guestId };
+      console.log('Renewal request body:', requestBody);
+      const response = await apiClient.post<string>('/renew/session', requestBody);
+      console.log('Session renewed successfully:', response);
       return response;
     } catch (error) {
       console.error('Failed to renew session:', error);

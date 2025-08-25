@@ -105,12 +105,22 @@ export default function ShopDetail() {
       navigate('/recipe-waiting');
       
       // 세션 확보 (만료된 경우 갱신)
+      console.log('=== Starting recipe recommendation process ===');
+      console.log('Current localStorage guest_id:', localStorage.getItem('guest_id'));
+      console.log('Current localStorage session_expiry:', localStorage.getItem('session_expiry'));
+      console.log('Current time:', Date.now());
+      
       console.log('Ensuring session before recipe request...');
-      await ensureSession();
-      console.log('Session ensured successfully');
+      const sessionId = await ensureSession();
+      console.log('Session ensured successfully. Session ID:', sessionId);
+      
+      console.log('Updated localStorage guest_id:', localStorage.getItem('guest_id'));
+      console.log('Updated localStorage session_expiry:', localStorage.getItem('session_expiry'));
       
       // AI 레시피 추천 API 호출
+      console.log('Making AI recipe recommendation request...');
       const recipeResponse = await aiRecipeApi.recommendRecipes(restaurant.id, "none");
+      console.log('AI recipe recommendation successful:', recipeResponse);
       
       // API 응답을 RecipeDetail 페이지로 전달하며 이동
       navigate('/recipe-detail', { 

@@ -86,7 +86,9 @@ export class SessionManager {
   async initializeGuestSession(): Promise<string> {
     try {
       console.log('Initializing new guest session...');
+      console.log('Making request to /guest/session endpoint...');
       const guestId = await sessionApi.createGuestSession();
+      console.log('Received guest session response:', guestId);
       
       if (guestId && typeof guestId === 'string') {
         this.saveSessionToStorage(guestId);
@@ -110,7 +112,9 @@ export class SessionManager {
 
     try {
       console.log('Renewing session for:', this.guestId);
+      console.log('Making request to /renew/session endpoint with guestId:', this.guestId);
       const response = await sessionApi.renewSession(this.guestId);
+      console.log('Received session renewal response:', response);
       
       // 세션 갱신 성공 시 만료 시간 업데이트
       const expiryTime = Date.now() + SESSION_DURATION;
